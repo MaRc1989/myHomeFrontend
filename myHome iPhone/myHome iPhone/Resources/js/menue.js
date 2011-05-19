@@ -3,16 +3,18 @@ Titanium.include('functions.js');
 //Titanium.UI.setBackgroundImage('images/darkfade.jpg');
 
 var baseWin = Titanium.UI.currentWindow;
-
-var win1 = Titanium.UI.createWindow({  
+/* Auf dem Basis Window, Window des Login-Menüs, wird ein neues Fenster erzeugt für das Main Menu mit der Auswahl Ebenen,
+Räume, Lichter, Kamera
+*/
+var fenster_hauptmenu = Titanium.UI.createWindow({  
     title:'Menue'
 	// backgroundImage: 'images/darkfade.jpg',
 });
 
-win1.orientationModes = [Titanium.UI.PORTRAIT];
+fenster_hauptmenu.orientationModes = [Titanium.UI.PORTRAIT];
 
-Titanium.UI.orientation = Titanium.UI.PORTRAIT;
-
+//Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+// Logo
 var logo = Titanium.UI.createImageView({
 	image: "../images/logo.png",
 	width: '59px',
@@ -20,9 +22,9 @@ var logo = Titanium.UI.createImageView({
 	top: '10px'
 });
 
-win1.add(logo);
+fenster_hauptmenu.add(logo);
 
-// create the main menu container
+// Menü Container, Tabelle für Auswahl Ebenen, Räume, Lichter Grundriss etc.
 var main_menu = Ti.UI.createTableView({
 	style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
 	scrollable:true,
@@ -31,11 +33,11 @@ var main_menu = Ti.UI.createTableView({
 	top: '79px'
 });
 
-// first option row
+// Zeilen der Tabelle, Auswahl Ebenen, Räume, Lichter, Grundriss... etc.
 var firstItemRow = Ti.UI.createTableViewRow({
 	hasChild: true
 });
-
+// Textlabel "Ebenen"  in der Zeile...
 var firstItemLabel = Ti.UI.createLabel({
 	left: 9,
 	text: "Ebenen"
@@ -43,9 +45,9 @@ var firstItemLabel = Ti.UI.createLabel({
 firstItemRow.add(firstItemLabel);
 
 main_menu.appendRow(firstItemRow);
-// end first option row
+// Ende der ersten Zeile
 
-// second option row
+// Zweite Zeile ... Beschreibung siehe oben!
 var secondItemRow = Ti.UI.createTableViewRow({
 	hasChild: true
 });
@@ -57,9 +59,9 @@ var secondItemLabel = Ti.UI.createLabel({
 secondItemRow.add(secondItemLabel);
 
 main_menu.appendRow(secondItemRow);
-// end second option row
+// Ende der zweiten Zeile
 
-// third option row
+// Dritte Zeile ... Beschreibung siehe oben!
 var thirdItemRow = Ti.UI.createTableViewRow({
 	hasChild: true
 });
@@ -71,9 +73,9 @@ var thirdItemLabel = Ti.UI.createLabel({
 thirdItemRow.add(thirdItemLabel);
 
 main_menu.appendRow(thirdItemRow);
-// end third option row
+// Ende der dritten Zeile
 
-// fourth option row
+// Vierte Zeile ... Beschreibung siehe oben!
 var fourthItemRow = Ti.UI.createTableViewRow({
 	hasChild: true
 });
@@ -85,15 +87,16 @@ var fourthItemLabel = Ti.UI.createLabel({
 fourthItemRow.add(fourthItemLabel);
 
 main_menu.appendRow(fourthItemRow);
-// end fourth option row
+// Ende der dritten Zeile
 
+//Informative Ausgabe von Username und UserToken
 var detailLabel = Titanium.UI.createLabel({
 	top: 200,
 	left:20,
 	color: '#fff',
 	text: 'username: ' + Titanium.App.Properties.getString('username') + '\nuserToken: ' + Titanium.App.Properties.getString('userToken') + '\n'
 });
-
+//Informative Ausgabe von Userstatus, also ob Admin oder nicht. 
 if(Titanium.App.Properties.getBool('isAdmin') == true){
 	detailLabel.text += 'isAdmin: true \n';
 } else {
@@ -101,24 +104,24 @@ if(Titanium.App.Properties.getBool('isAdmin') == true){
 }
 main_menu.add(detailLabel);
 
-win1.add(main_menu);
+fenster_hauptmenu.add(main_menu);
 
 var logoutBtn = Titanium.UI.createButton({
 	title:'Logout'
 });
 
-win1.rightNavButton = logoutBtn;
+fenster_hauptmenu.rightNavButton = logoutBtn;
  
 var navGroup = Ti.UI.iPhone.createNavigationGroup( {
-    window : win1
+    window : fenster_hauptmenu
 });
 
-addEventToRow(firstItemRow, 'Ebenen', 'menue_ebenen.js', Titanium.UI.currentWindow, navGroup, win1);
-addEventToRow(secondItemRow, 'Räume', 'menue_raume.js', Titanium.UI.currentWindow, navGroup, win1);
-addEventToRow(thirdItemRow, 'Lichter', 'menue_lichter.js', Titanium.UI.currentWindow, navGroup, win1);
-addEventToRow(fourthItemRow, 'Kameras', 'menue_kameras.js', Titanium.UI.currentWindow, navGroup, win1);
+addEventToRow(firstItemRow, 'Ebenen', 'menue_ebenen.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
+addEventToRow(secondItemRow, 'Räume', 'menue_raume.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
+addEventToRow(thirdItemRow, 'Lichter', 'menue_lichter.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
+addEventToRow(fourthItemRow, 'Kameras', 'menue_kameras.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
  
-win1.navGroup = navGroup;
+fenster_hauptmenu.navGroup = navGroup;
 baseWin.add(navGroup);
 
 

@@ -1,31 +1,36 @@
-//Titanium.include('js/functions.js');
-Titanium.include('js/suds.js');
+Titanium.include('js/suds.js'); //Soap Cleint wird eingebunden
 
+// Lokale SQLLite Datenbank wird installiert, wird nur ausgeführt sofern DB noch nicht vorhanden
 var db = Titanium.Database.install("db/myHome4.sqlite", 'myHome4');
-
+// Userdaten werden aus der Lokalen DB ausgelesen
 var dbLogin = db.execute('SELECT * FROM login WHERE id = 1');
 Titanium.App.Properties.setString('loginName', dbLogin.fieldByName('name'));
 Titanium.App.Properties.setString('loginPassword', dbLogin.fieldByName('password'));
+
+//Ist kein Loginname in der Datenbank oder eingegeben wird das Speichern des Passworts auf "false" gesetzt
 if(dbLogin.fieldByName('name') == ""){
 	Titanium.App.Properties.setBool('loginAuto', false);
 } else {
 	Titanium.App.Properties.setBool('loginAuto', true);	
 }
 
+//URL zum Backend aus Datenbank ausgelesen in die Variable url gespeichert
 var url = db.execute('SELECT * FROM url WHERE id = 1');
 Titanium.App.Properties.setString('url', url.fieldByName('url'));
 db.close();
 
+// Ausgabe von URL, Name und Passwort zur Information für den USER
 Titanium.API.info("Set Global URL: " + Titanium.App.Properties.getString('url'));
 Titanium.API.info("Set Global Name: " + Titanium.App.Properties.getString('loginName'));
 Titanium.API.info("Set Global Password: " + Titanium.App.Properties.getString('loginPassword'));
 
+//Hintergrund (gültig für alle neu erzeugten Fenster
 Titanium.UI.setBackgroundImage('images/darkfade.jpg');
 
-// create tab group
+// TabGroup wird erzeugt
 var tabGroup = Titanium.UI.createTabGroup();
 
-var win1 = Titanium.UI.createWindow({  
+var fenster_loginmenu = Titanium.UI.createWindow({  
     title:'myHome',
 	tabBarHidden:true,
 	navBarHidden: true
@@ -33,13 +38,13 @@ var win1 = Titanium.UI.createWindow({
 
 var tab1 = Titanium.UI.createTab({
 	title:'myHome',
-	window:win1
+	window:fenster_loginmenu
 });
 
-win1.orientationModes = [Titanium.UI.PORTRAIT];
+// Menüs nur im Porträt Modus anzeigen
+fenster_loginmenu.orientationModes = [Titanium.UI.PORTRAIT];
 
-//Titanium.UI.orientation = Titanium.UI.PORTRAIT;
-
+// Logo
 var logo = Titanium.UI.createImageView({
 	image: "images/logo.png",
 	width: '59px',
@@ -47,9 +52,10 @@ var logo = Titanium.UI.createImageView({
 	top: '10px'
 });
 
-win1.add(logo);
+fenster_loginmenu.add(logo);
 
-// create the main menu container
+/*main menu container (Tabelle) wird erzeugt (beinhaltet später Eingabefelder für
+ Benutzername und Passwort)*/
 var main_menu = Ti.UI.createTableView({
 	style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
 	scrollable:false,
@@ -58,7 +64,7 @@ var main_menu = Ti.UI.createTableView({
 	top: '79px'
 });
 
-// first option row
+// Erste Zeile der Tabelle (Feld Name), Eingabefeld Benutzername
 var firstItemRow = Ti.UI.createTableViewRow({});
 
 var firstItemLabel = Ti.UI.createLabel({
@@ -81,9 +87,9 @@ firstItemRow.add(firstItemLabel);
 firstItemRow.add(username);
 
 main_menu.appendRow(firstItemRow);
-// end first option row
+// Ende erste Zeile
 
-// second option row
+// Zweite Zeile, Passwortfeld
 var secondItemRow = Ti.UI.createTableViewRow({});
 
 var secondItemLabel = Ti.UI.createLabel({
@@ -107,15 +113,17 @@ secondItemRow.add(secondItemLabel);
 secondItemRow.add(password);
 
 main_menu.appendRow(secondItemRow);
+//Ende Zweite Zeile
 
-win1.add(main_menu);
+// Das erzeugte Main Menü mit Eingabefeldern für Benutzername werden an das Fenster übergeben
+fenster_loginmenu.add(main_menu);
 
 var imageUrl = 'images/checkbox_unchecked.png';
 
 if(Titanium.App.Properties.getBool('loginAuto') == true){
 	imageUrl = 'images/checkbox_checked.png';
 }
-
+// Checkbox zum Speichern des Passworts
 var checkbox = Titanium.UI.createImageView({
 	width: '16px',
 	height: '16px',
@@ -134,8 +142,8 @@ var checkboxtext = Titanium.UI.createLabel({
 	height: 30
 });
 
-win1.add(checkboxtext);
-win1.add(checkbox);
+fenster_loginmenu.add(checkboxtext);
+fenster_loginmenu.add(checkbox);
 
 var loginBtn = Titanium.UI.createButton({
 	title:'Login',
@@ -144,9 +152,9 @@ var loginBtn = Titanium.UI.createButton({
 	height:35,
 	borderRadius:1
 });
-win1.add(loginBtn);
+fenster_loginmenu.add(loginBtn);
 
-// create the main menu container
+// Settings-Menübutton wird erzeugt
 var settings_menu = Ti.UI.createTableView({
 	style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
 	scrollable:false,
@@ -155,7 +163,7 @@ var settings_menu = Ti.UI.createTableView({
 	top: 320
 });
 
-// first option row
+// Erste Zeile der Tabelle in der der Settingsbuttons sich befindet
 var settingsRow = Ti.UI.createTableViewRow({
 	hasChild: true
 });
@@ -168,27 +176,27 @@ settingsRow.add(settingsRowLabel);
 
 settings_menu.appendRow(settingsRow);
 
-win1.add(settings_menu);
+fenster_loginmenu.add(settings_menu);
 
-// add tabs
+// Tabs werden hinzugefügt
 tabGroup.addTab(tab1); 
 
-// open tab group
+// Tab Group wird geöffnet
 tabGroup.open();
 
-// Settings Window
-var sub_win1 = Ti.UI.createWindow({title:'Settings', navBarHidden: false, url: 'windows/settings.js'});
+// Settings Window wird erzeugt
+var fenster_settings = Ti.UI.createWindow({title:'Settings', navBarHidden: false, url: 'js/settings.js'});
 
-// Menu Window
-var menuWin = Titanium.UI.createWindow({});
+//Menu Window = Fenster Hauptmenü
+var fenster_hauptmenu = Titanium.UI.createWindow({});
 
-// add the event to the first item
+// Settingsbutton bekommt Eventlistener, der bei Klick das Settingsfenster öffnet.
 settingsRow.addEventListener('click', function (e) {
-	Titanium.API.info("Öffne Settings");
-	tab1.open(sub_win1);
+	Titanium.API.info("Oeffne Settings");
+	tab1.open(fenster_settings);
 });
 
-
+// Checkbox bekommt Eventlistener, der Angibt ob das Passwort gespeichert werden soll.
 checkbox.addEventListener('click', function(e) {
 	if(Titanium.App.Properties.getBool('loginAuto') == true){
 		imageUrl = 'images/checkbox_unchecked.png';
@@ -202,33 +210,23 @@ checkbox.addEventListener('click', function(e) {
 	checkbox.image = imageUrl;	
 });
 
-checkboxtext.addEventListener('click', function(e) {
-	if(Titanium.App.Properties.getBool('loginAuto') == true){
-		imageUrl = 'images/checkbox_unchecked.png';
-		Titanium.App.Properties.setBool('loginAuto', false);
-		Titanium.API.info('Setze loginAuto = false');
-	} else if(Titanium.App.Properties.getBool('loginAuto') == false){
-		imageUrl = 'images/checkbox_checked.png';
-		Titanium.App.Properties.setBool('loginAuto', true);
-		Titanium.API.info('Setze loginAuto = true');
-	}
-	checkbox.image = imageUrl;	
-});
-
+// Loginbutton bekommt Eventlistener, der bei Klick den Login durchführt.
 loginBtn.addEventListener('click', function(e) {
-	var db3 = Titanium.Database.install("db/myHome4.sqlite", 'myHome4');
+	// Datenbank wird erneut initialisiert, falls noch nicht vorhanden
+	var db_userdata = Titanium.Database.install("db/myHome4.sqlite", 'myHome4');
+// Für den Fall das Benutzername und Passwort gespeichert werden sollen, werden sie hier in die DB geschrieben.
 	if(Titanium.App.Properties.getBool('loginAuto') == true){
 		Titanium.API.info('Speichere Name und Password in der Datenbank.');
 		
-		db3.execute("DELETE FROM login");
-		db3.execute("INSERT INTO login (id, name, password) VALUES (1, ?, ?)", username.value, password.value);
+		db_userdata.execute("DELETE FROM login");
+		db_userdata.execute("INSERT INTO login (id, name, password) VALUES (1, ?, ?)", username.value, password.value);
 		Titanium.App.Properties.setString('loginName', username.value);
 		Titanium.App.Properties.setString('loginPassword', password.value);
 		
 	} else {
-		db3.execute("DELETE FROM login");
+		db_userdata.execute("DELETE FROM login");
 	}
-	db3.close();
+	db_userdata.close();
 	
 	var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 	
@@ -236,7 +234,9 @@ loginBtn.addEventListener('click', function(e) {
 		    username: username.value,
 			password: password.value
 		};
-
+/* Im Folgenden der suds Client (SOAP Client), der die SOAP Abfragen ausführt und Werte zurück liefert. 
+	Login-Vorgang und Aufruf des Hauptmenüfensters
+*/	
 	var suds = new SudsClient({
 	    endpoint: url,
 	    targetNamespace: Titanium.App.Properties.getString('url')
@@ -264,18 +264,19 @@ loginBtn.addEventListener('click', function(e) {
 				
 				Titanium.App.Properties.setString('username', username.value);
 				
+				//Rein oder raus???
 				//alert("Login erfolgreich! \n isAdmin: " + isAdmin.item(0).text + " \n userToken: " + userToken.item(0).text)
 				
-				  
-				menuWin.title			=	'Base Menu';
-				menuWin.url 			=	'js/menue.js';
-				menuWin.tabBarHidden	=	true;
-				menuWin.navBarHidden	=	true;
-				menuWin.orientationModes= 	[Titanium.UI.PORTRAIT];				
+				// Parameter für das Fenster des Hauptmenüs 
+				fenster_hauptmenu.title			=	'Base Menu';
+				fenster_hauptmenu.url 			=	'js/menue.js';
+				fenster_hauptmenu.tabBarHidden	=	true;
+				fenster_hauptmenu.navBarHidden	=	true;
+				fenster_hauptmenu.orientationModes= 	[Titanium.UI.PORTRAIT];				
 				
 				tabGroup.close();
 				//mainTabGroup.open();
-				menuWin.open();
+				fenster_hauptmenu.open();//Aufruf Hauptmenüfenster
 				
 							
 	        } else {
@@ -291,13 +292,15 @@ loginBtn.addEventListener('click', function(e) {
 		Ti.API.error('Error: ' + e);
 	}
 });
-
+/* Eventlistener für den Logout-Button, bei Klick wird das Menüfenster geschlossen und die Variablen username, userToken und is
+ isadmin gelöscht
+ */
 Ti.App.addEventListener('eventLogout', function(event)
 {
 	Titanium.App.Properties.removeProperty("username");
 	Titanium.App.Properties.removeProperty("userToken");
 	Titanium.App.Properties.removeProperty("isAdmin");
 	Titanium.API.info("Loesche Properties...");
-	menuWin.close();
+	fenster_hauptmenu.close();
 	tabGroup.open();	
 });
