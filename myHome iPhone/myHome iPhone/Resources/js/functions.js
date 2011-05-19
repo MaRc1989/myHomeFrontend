@@ -60,7 +60,7 @@ function createNodes(win1, id, name, posX, posY, value, key){
 	}
 	
 	
-	posX = posX * 480;
+	posX = posX * win1.navGroup.width;
 	posY = posY * win1.navGroup.height;
 	
 	/*
@@ -118,7 +118,7 @@ function createNodes(win1, id, name, posX, posY, value, key){
 	   */
 	  	  
 	  var callparams = {
-	  	userToken: '1234',
+	  	userToken: Titanium.App.Properties.getString('userToken'),
 		nodeId: id,
 		key: key,
 		value: newValue

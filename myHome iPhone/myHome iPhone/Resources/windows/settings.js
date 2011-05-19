@@ -9,6 +9,7 @@ var logo = Titanium.UI.createImageView({
 
 sub_win1.add(logo);
 
+
 var sub_table1 = Ti.UI.createTableView({
 	style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
 	scrollable:false,

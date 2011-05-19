@@ -25,13 +25,13 @@ var soapAction;
 
 if(win1.params){
 	callparams = {
-	    Titanium.App.Properties.getString('userToken'),
+	    userToken: Titanium.App.Properties.getString('userToken'),
 		blueprintId: parseInt(win1.params, 10)
 	};
 	soapAction = 'getNodesByBlueprint';
 } else {
 	callparams = {
-	    userToken: '1234'
+	    userToken: Titanium.App.Properties.getString('userToken')
 	};
 	soapAction = 'getNodes';
 }
@@ -154,7 +154,7 @@ function setLichtStatus(id, key, value){
 	info(key);
 	info(value);
 	var callparams2 = {
-		Titanium.App.Properties.getString('userToken'),
+		userToken: Titanium.App.Properties.getString('userToken'),
 		nodeId: parseInt(id, 10),
 		key: key,
 		value: value

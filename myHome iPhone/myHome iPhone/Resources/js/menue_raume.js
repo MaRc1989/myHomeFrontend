@@ -25,7 +25,7 @@ var soapAction;
 
 if(win1.params){
 	callparams = {
-	    userToken: '1234',
+	    userToken: Titanium.App.Properties.getString('userToken'),
 		blueprintId: parseInt(win1.params, 10),
 		maxHeight: 100,
 		maxWidth: 100

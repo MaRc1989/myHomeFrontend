@@ -28,13 +28,13 @@ var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
 
 /*
  * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
- * userToken muss angepasst werden !!!
+ * Höhe und Breite wird an Server übergeben, entsprechend wird das Bild zurückgegeben
  */
 var callparams = {
-    userToken: '1234',
+    Titanium.App.Properties.getString('userToken'),
 	blueprintId: parseInt(win1.params, 10),
 	maxHeight: win1.navGroup.height,
-	maxWidth: 480
+	maxWidth: win1.navGroup.width
 };
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).
@@ -133,20 +133,23 @@ try {
     Ti.API.error('Error: ' + e);
 }
 
-var callparams2 = {
-    userToken: '1234',
+/*
+ * Parameter für die Abfrage der Lichter (Nodes) für einen Grundriss
+*/
+var callparamsNodes = {
+    Titanium.App.Properties.getString('userToken'),
 	blueprintId: parseInt(win1.params, 10)
 };
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).
  */
-var suds2 = new SudsClient({
+var sudsNode = new SudsClient({
 	endpoint: url,
 	targetNamespace: Titanium.App.Properties.getString('url')
 });
 
 try {
-    suds2.invoke('getNodesByBlueprint', callparams, function(xmlDoc) {
+    sudsNode.invoke('getNodesByBlueprint', callparamsNodes, function(xmlDoc) {
         var results = xmlDoc.documentElement.getElementsByTagName('item');
         if (results && results.length>0) {
             

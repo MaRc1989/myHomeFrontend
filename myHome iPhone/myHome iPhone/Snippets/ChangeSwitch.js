@@ -94,7 +94,7 @@ function createModalWindow(win1, id, name, value, key){
 	  }
 	  
 	  var callparams = {
-	  	userToken: '1234',
+	  	userToken: Titanium.App.Properties.getString('userToken'),
 		nodeId: id,
 		key: key,
 		value: newValue
