@@ -184,7 +184,7 @@ var menuWin = Titanium.UI.createWindow({});
 
 // add the event to the first item
 settingsRow.addEventListener('click', function (e) {
-	Titanium.API.info("Oeffne Settings");
+	Titanium.API.info("Öffne Settings");
 	tab1.open(sub_win1);
 });
 
