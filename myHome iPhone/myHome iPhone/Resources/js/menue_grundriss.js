@@ -31,7 +31,7 @@ var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
  * Höhe und Breite wird an Server übergeben, entsprechend wird das Bild zurückgegeben
  */
 var callparams = {
-    Titanium.App.Properties.getString('userToken'),
+    userToken: Titanium.App.Properties.getString('userToken'),
 	blueprintId: parseInt(win1.params, 10),
 	maxHeight: win1.navGroup.height,
 	maxWidth: win1.navGroup.width
@@ -137,7 +137,7 @@ try {
  * Parameter für die Abfrage der Lichter (Nodes) für einen Grundriss
 */
 var callparamsNodes = {
-    Titanium.App.Properties.getString('userToken'),
+    userToken: Titanium.App.Properties.getString('userToken'),
 	blueprintId: parseInt(win1.params, 10)
 };
 /*

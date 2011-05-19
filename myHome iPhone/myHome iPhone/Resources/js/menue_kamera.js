@@ -23,7 +23,7 @@ var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
  */
 info(win1.params);
 var callparams = {
-    userToken: '1234',
+    userToken: Titanium.App.Properties.getString('userToken'),
 	nodeId: parseInt(win1.params, 10)
 };
 var soapAction = 'getSnapshot';
