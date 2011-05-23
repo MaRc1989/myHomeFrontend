@@ -1,3 +1,5 @@
+Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+
 Titanium.include('functions.js');
 Titanium.include('suds.js');
 
@@ -33,7 +35,7 @@ if(win1.params){
 	soapAction = 'getBlueprint';
 } else {
 	callparams = {
-	    userToken: '1234'
+	    userToken: Titanium.App.Properties.getString('userToken')
 	};
 	soapAction = 'getBlueprints';
 }

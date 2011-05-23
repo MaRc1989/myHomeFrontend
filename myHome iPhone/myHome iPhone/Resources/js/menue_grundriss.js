@@ -207,3 +207,11 @@ try {
     Ti.API.error('Error: ' + e);
 }
 
+// Logout-Button
+win1.rightNavButton = logoutBtn;
+
+logoutBtn.addEventListener('click',function(e)
+{
+	Ti.App.fireEvent('eventLogout');
+});
+

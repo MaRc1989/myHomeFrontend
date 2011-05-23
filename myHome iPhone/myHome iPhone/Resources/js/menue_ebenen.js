@@ -1,3 +1,5 @@
+Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+
 Titanium.include('functions.js');
 Titanium.include('suds.js');
 
@@ -18,7 +20,7 @@ var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
  * userToken muss angepasst werden !!!
  */	
 var callparams = {
-    userToken: '1234'
+    userToken: Titanium.App.Properties.getString('userToken')
 };
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).

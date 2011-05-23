@@ -1,3 +1,5 @@
+Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+
 Titanium.include('functions.js');
 
 //Titanium.UI.setBackgroundImage('images/darkfade.jpg');

@@ -1,5 +1,9 @@
 Titanium.include('suds.js');
 
+/*
+ * Erzeugt Event für Menüeintrag
+ * Neues Fenster wird in Menüstruktur geöffnet, dadurch gibt es ein "Zurück"-Button
+*/
 function addEventToRow(theRow,theTitle, theUrl, theCurrentWindow, theNavGroup, theRootWindow, paramValue)
 {
     //theOrientationModes = (typeof theOrientationModes == 'undefined') ? Titanium.UI.PORTRAIT : theOrientationModes;
@@ -83,11 +87,15 @@ function createNodes(win1, id, name, posX, posY, value, key){
 	circlesLabelsarray[id] = Titanium.UI.createLabel({
 		text: name,
 		height:'auto',
-		left: posX - 30,
+		width:'auto',
+		left: 0,
 		top: posY - 30,
 		visible: true,
 		zIndex: 12
 	});
+	
+	// Automatische Berechnung der x-Position des Labels durch die Breite des Labels
+	circlesLabelsarray[id].left = circlesarray[id].left - circlesLabelsarray[id].size.width/2;
 			
 	circlesarray[id].addEventListener('click',function(e)
     {
@@ -104,7 +112,7 @@ function createNodes(win1, id, name, posX, posY, value, key){
 		
 		info("Anscheinend wird das hier ausgeführt...wieso?");
 	  /*
-       * SOAP Request um Licht auszumachen
+       * SOAP Request um Licht an-/auszumachen
        */
 	  
 	  /*

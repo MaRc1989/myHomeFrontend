@@ -25,7 +25,7 @@ var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
  * userToken muss angepasst werden !!!
  */	
 var callparams = {
-    userToken: '1234'
+    Titanium.App.Properties.getString('userToken')
 };
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).
