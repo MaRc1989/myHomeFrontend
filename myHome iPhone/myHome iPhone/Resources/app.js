@@ -15,8 +15,8 @@ if(dbLogin.fieldByName('name') == ""){
 }
 
 //URL zum Backend aus Datenbank ausgelesen in die Variable url gespeichert
-var url = db.execute('SELECT * FROM url WHERE id = 1');
-Titanium.App.Properties.setString('url', url.fieldByName('url'));
+var DBurl = db.execute('SELECT * FROM url WHERE id = 1');
+Titanium.App.Properties.setString('url', DBurl.fieldByName('url'));
 db.close();
 
 // Ausgabe von URL, Name und Passwort zur Information für den USER
@@ -228,7 +228,7 @@ loginBtn.addEventListener('click', function(e) {
 	}
 	db_userdata.close();
 	
-	var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+	// var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 	
 	var callparams = {
 		    username: username.value,
@@ -237,6 +237,9 @@ loginBtn.addEventListener('click', function(e) {
 /* Im Folgenden der suds Client (SOAP Client), der die SOAP Abfragen ausführt und Werte zurück liefert. 
 	Login-Vorgang und Aufruf des Hauptmenüfensters
 */	
+	// URL wird für den Login abgefragt; muss hier gesetzt werden, damit die neu gespeicherte URL abgefragt wird
+	var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
+	
 	var suds = new SudsClient({
 	    endpoint: url,
 	    targetNamespace: Titanium.App.Properties.getString('url')
@@ -292,15 +295,43 @@ loginBtn.addEventListener('click', function(e) {
 		Ti.API.error('Error: ' + e);
 	}
 });
+
 /* Eventlistener für den Logout-Button, bei Klick wird das Menüfenster geschlossen und die Variablen username, userToken und is
  isadmin gelöscht
  */
+
 Ti.App.addEventListener('eventLogout', function(event)
 {
-	Titanium.App.Properties.removeProperty("username");
-	Titanium.App.Properties.removeProperty("userToken");
-	Titanium.App.Properties.removeProperty("isAdmin");
-	Titanium.API.info("Loesche Properties...");
-	fenster_hauptmenu.close();
-	tabGroup.open();	
+	var callparams = {
+		    userToken: Titanium.App.Properties.getString('userToken')
+		};
+		
+	// URL wird für den Login abgefragt; muss hier gesetzt werden, damit die neu gespeicherte URL abgefragt wird
+	var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
+	
+	var suds = new SudsClient({
+	    endpoint: url,
+	    targetNamespace: Titanium.App.Properties.getString('url')
+	});
+	
+	try {
+	    suds.invoke('logout', callparams, function(xmlDoc) {
+			var results = xmlDoc.documentElement.getElementsByTagName('logoutResponse');
+	        if (results && results.length>0) {
+				// Logou erfolgreich
+				Titanium.App.Properties.removeProperty("username");
+				Titanium.App.Properties.removeProperty("userToken");
+				Titanium.App.Properties.removeProperty("isAdmin");
+				Titanium.API.info("Loesche Properties...");
+				fenster_hauptmenu.close();
+				tabGroup.open();
+			}
+			else  {
+				alert("Fehler beim Logout!");
+			}
+		});
+	} catch(e) {
+	  	alert(e);
+		Ti.API.error('Error: ' + e);
+	}	
 });

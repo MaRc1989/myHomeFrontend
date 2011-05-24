@@ -16,7 +16,7 @@ win1.orientationModes = [Titanium.UI.LANDSCAPE_RIGHT];
 /*
  * Definiton der URL Endpoint.
  */
-var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+// var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 
 /*
  * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
@@ -25,7 +25,7 @@ var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
 var callparams = {
     userToken: Titanium.App.Properties.getString('userToken'),
 	nodeId: parseInt(win1.params, 10)
-}
+};
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).
  */
