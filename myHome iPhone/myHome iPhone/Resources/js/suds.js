@@ -141,7 +141,6 @@ function SudsClient(_options) {
 	// xhr.setRequestHeader('SOAPAction', soapAction);
 	xhr.send(config.envelopeBegin+body+config.envelopeEnd);
 	
-	Titanium.API.info(soapAction+config.envelopeBegin+body+config.envelopeEnd);
   };
   
 }
