@@ -84,7 +84,10 @@ function createNode(win1, result){
 		var nodesX = result.getElementsByTagName('x').item(0).text;
 		
 		var nodesY = result.getElementsByTagName('y').item(0).text;
-		createCamera(win1, nodesName, nodesX, nodesY);
+		
+		var nodesID = result.getElementsByTagName('id').item(0).text;
+		
+		createCamera(win1, nodesName, nodesX, nodesY, nodesID);
 		
 	}
 }
@@ -111,17 +114,18 @@ function createHeatingOff(win1, name, posX, posY){
 	});
 	
 	labelHeating.left = posX - labelHeating.size.width/2;
+
 	
 	win1.add(imageHeating);
 	//win1.add(labelHeating);
 }
 
-function createCamera(win1, name, posX, posY){
+function createCamera(win1, name, posX, posY, nodesID){
 	posX = posX * win1.navGroup.width;
 	posY = posY * win1.navGroup.height;
 	
-	var imageCamera = Titanium.UI.createImageView({
-		image: "../images/camera.png",
+	var imageCamera = Titanium.UI.createView({
+		backgroundImage: "../images/camera.png",
 		width: '24px',
 		height: '18px',
 		top: posY - 9,
@@ -139,6 +143,8 @@ function createCamera(win1, name, posX, posY){
 	});
 	
 	labelCamera.left = posX - labelCamera.size.width/2;
+	
+	addEventToRow(imageCamera, name, 'menue_kamera.js', Titanium.UI.currentWindow, win1.navGroup, win1.rootWindow, nodesID);	
 	
 	win1.add(imageCamera);
 	//win1.add(labelCamera);
