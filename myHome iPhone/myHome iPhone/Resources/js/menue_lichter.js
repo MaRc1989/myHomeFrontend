@@ -99,7 +99,7 @@ try {
 							right: 9,
 							value: lightboolean
 						});
-						info("VAlUE !!!!!!!!!!!!!?????????!!!!!!!" + switchArray[nodesID].value);						
+						info("VAlUE" + switchArray[nodesID].value);						
 						
 						setEventListener(nodesID, nodesStatusKey);
 						
