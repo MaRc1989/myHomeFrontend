@@ -306,7 +306,7 @@ Ti.App.addEventListener('eventLogout', function(event)
 		    userToken: Titanium.App.Properties.getString('userToken')
 		};
 		
-	// URL wird für den Login abgefragt; muss hier gesetzt werden, damit die neu gespeicherte URL abgefragt wird
+	// URL wird für den Login abgefragt, muss hier gesetzt werden, damit die neu gespeicherte URL abgefragt wird
 	var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
 	
 	var suds = new SudsClient({
