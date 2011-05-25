@@ -36,7 +36,7 @@ function SudsClient(_options) {
     }
   }
   
-  //A generic extend function - thanks MooTools
+  //Funktion zur Erweiterung von Variablen (Objekten)
   function extend(original, extended) {
     for (var key in (extended || {})) {
       if (original.hasOwnProperty(key)) {
@@ -46,23 +46,23 @@ function SudsClient(_options) {
     return original;
   }
   
-  //Check if an object is an array
+  //Prüfung ob ein Objekt ein Array ist
   function isArray(obj) {
     return Object.prototype.toString.call(obj) == '[object Array]';
   }
   
-  //Grab an XMLHTTPRequest Object
+  //Holt per get eine XMLHTTPRequest Object
   function getXHR() {
   	return Titanium.Network.createHTTPClient();
   }
   
-  //Parse a string and create an XML DOM object
+  //Aus einem String wird ein XML DOM object
   function xmlDomFromString(_xml) {
     xmlDoc = Titanium.XML.parseString(_xml);
     return xmlDoc;
   }
   
-  // Convert a JavaScript object to an XML string - takes either an
+  // Konvertiert ein Javascript OBbjekt in ein XML string 
   function convertToXml(_obj, namespacePrefix) {
     var xml = '';
     if (isArray(_obj)) {
@@ -70,7 +70,7 @@ function SudsClient(_options) {
         xml += convertToXml(_obj[i], namespacePrefix);
       }
     } else {
-      //For now assuming we either have an array or an object graph
+   
       for (var key in _obj) {
         if (namespacePrefix && namespacePrefix.length) {
           xml += '<' + namespacePrefix + ':' + key + '>';
@@ -93,7 +93,7 @@ function SudsClient(_options) {
     return xml;
   }
   
-  // Client Configuration
+  // Client Konfiguration
   var config = extend({
     endpoint:'https://localhost:8888/service',
     targetNamespace: 'https://localhost:8888/service?wsdl',
@@ -101,13 +101,13 @@ function SudsClient(_options) {
     envelopeEnd: '</soapenv:Body></soapenv:Envelope>'
   },_options);
   
-  // Invoke a web service
+  // Aufruf web service
   this.invoke = function(_soapAction,_body,_callback) {  
 	
-	//Build request body 
+	//Erstelle request body 
     var body = _body;
     
-    //Allow straight string input for XML body - if not, build from object
+    //Erlaubt einen String in einen XML body einzufügen - Ansonsten wird dieser aus einem XML Objekt erzeugt.
     if (typeof body !== 'string') {
       body = '<fron:'+_soapAction+'>';
       body += convertToXml(_body);
@@ -117,7 +117,7 @@ function SudsClient(_options) {
     var ebegin = config.envelopeBegin;
     config.envelopeBegin = ebegin.replace('PLACEHOLDER', config.targetNamespace);
     
-    //Build Soapaction header - if no trailing slash in namespace, need to splice one in for soap action
+    //Erzeugt den Soapaction header
     var soapAction = '';
     if (config.targetNamespace.lastIndexOf('/') != config.targetNamespace.length - 1) {
       soapAction = config.targetNamespace+'/'+_soapAction;
@@ -126,7 +126,7 @@ function SudsClient(_options) {
       soapAction = config.targetNamespace+_soapAction;
     }
     
-    //POST XML document to service endpoint
+    //Sende das XML document  per HTTP_Post zum service endpoint
     var xhr = getXHR();
     xhr.onload = function() {
       _callback.call(this, xmlDomFromString(this.responseText));
