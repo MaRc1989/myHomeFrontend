@@ -1,3 +1,5 @@
+Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+
 Titanium.include('functions.js');
 Titanium.include('suds.js');
 
@@ -11,14 +13,14 @@ var ebenen = [];
 /*
  * Definiton der URL Endpoint.
  */
-var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+// var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 
 /*
  * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
  * userToken muss angepasst werden !!!
  */	
 var callparams = {
-    userToken: '1234'
+    userToken: Titanium.App.Properties.getString('userToken')
 };
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).

@@ -1,3 +1,5 @@
+Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+
 Titanium.include('functions.js');
 Titanium.include('suds.js');
 
@@ -14,7 +16,7 @@ win1.orientationModes = [Titanium.UI.PORTRAIT];
 /*
  * Definiton der URL Endpoint.
  */
-var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+// var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 
 /*
  * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
@@ -33,7 +35,7 @@ if(win1.params){
 	soapAction = 'getBlueprint';
 } else {
 	callparams = {
-	    userToken: '1234'
+	    userToken: Titanium.App.Properties.getString('userToken')
 	};
 	soapAction = 'getBlueprints';
 }

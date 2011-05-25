@@ -80,7 +80,7 @@ function createModalWindow(win1, id, name, value, key){
 	  /*
 	   * Definiton der URL Endpoint.
 	   */
-	  var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+	  // var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 	
 	  /*
 	   * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.

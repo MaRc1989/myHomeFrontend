@@ -24,7 +24,7 @@ var blueprintLinksLabelsArray = [];
 /*
  * Definiton der URL Endpoint.
  */
-var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+// var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 
 /*
  * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
@@ -116,8 +116,9 @@ try {
 						zIndex: 12
 					});
 					
-					win1.add(blueprintLinksArray[m]);
-					win1.add(blueprintLinksLabelsArray[m]);
+					// Unnötig, weil keine Verlinkung der Ebenen untereinander
+					// win1.add(blueprintLinksArray[m]);
+					// win1.add(blueprintLinksLabelsArray[m]);
 					
 				}
 			} else {
@@ -156,8 +157,8 @@ try {
 			for(var n = 0; n < results.length; n++){
 				
 				var result = results.item(n);
-				Titanium.API.info('result: ' + result.text);
-							
+				// Titanium.API.info('result: ' + result.text);
+				/*			
 				var nodesID = result.getElementsByTagName('id').item(0).text;
 				Titanium.API.info('nodesID: ' + nodesID);
 				
@@ -194,7 +195,10 @@ try {
 				
 				}
 					
-				createNodes(win1, nodesID, nodesName, nodesX, nodesY, nodesStatusValue, nodesStatusKey);
+				createNodes(win1, nodesID, nodesName, nodesX, nodesY, nodesStatusValue, nodesStatusKey)
+				*/
+				
+				createNode(win1, result);
 											
 			}
 			
@@ -206,4 +210,12 @@ try {
 } catch(e) {
     Ti.API.error('Error: ' + e);
 }
+
+// Logout-Button
+win1.rightNavButton = logoutBtn;
+
+logoutBtn.addEventListener('click',function(e)
+{
+	Ti.App.fireEvent('eventLogout');
+});
 

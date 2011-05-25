@@ -1,3 +1,10 @@
+/*
+ * Definition der Parameter, die für SOAP Client notwendig sind
+ *
+*/
+
+var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
+
 /**
 * Suds: A Lightweight JavaScript SOAP Client
 * Copyright: 2009 Kevin Whinnery (http://www.kevinwhinnery.com)
@@ -88,8 +95,8 @@ function SudsClient(_options) {
   
   // Client Configuration
   var config = extend({
-    endpoint:'http://localhost',
-    targetNamespace: 'http://localhost',
+    endpoint:'https://localhost:8888/service',
+    targetNamespace: 'https://localhost:8888/service?wsdl',
     envelopeBegin: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fron="http://frontend.myhome.wi08e.de/"><soapenv:Header/><soapenv:Body>',
     envelopeEnd: '</soapenv:Body></soapenv:Envelope>'
   },_options);
@@ -126,8 +133,14 @@ function SudsClient(_options) {
     };
     xhr.open('POST',config.endpoint);
 	xhr.setRequestHeader('Content-Type', 'text/xml;charset=UTF-8');
-	xhr.setRequestHeader('SOAPAction', soapAction);
+	/*
+	 * 2011-05-24
+	 * Wieso bleibt SOAPAction undefiniert??? Mit Marek klären
+	 *
+	*/
+	// xhr.setRequestHeader('SOAPAction', soapAction);
 	xhr.send(config.envelopeBegin+body+config.envelopeEnd);
+	
   };
   
 }

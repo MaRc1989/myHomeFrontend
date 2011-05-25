@@ -1,3 +1,5 @@
+Titanium.UI.orientation = Titanium.UI.LANDSCAPE_RIGHT;
+
 Titanium.include('functions.js');
 Titanium.include('suds.js');
 
@@ -10,23 +12,20 @@ var sliderArray = [];
 var win1 = Titanium.UI.currentWindow;
 
 win1.orientationModes = [Titanium.UI.LANDSCAPE_RIGHT];
-Titanium.UI.orientation = Titanium.UI.LANDSCAPE_RIGHT;
 
 /*
  * Definiton der URL Endpoint.
  */
-var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+// var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 
 /*
  * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
  * userToken muss angepasst werden !!!
  */
-info(win1.params);
 var callparams = {
     userToken: Titanium.App.Properties.getString('userToken'),
 	nodeId: parseInt(win1.params, 10)
 };
-var soapAction = 'getSnapshot';
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).
  */
@@ -35,15 +34,8 @@ var suds = new SudsClient({
 	targetNamespace: Titanium.App.Properties.getString('url')
 });
 
-var main_menu = Ti.UI.createTableView({
-	style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
-	scrollable:true,
-	backgroundColor:'transparent',
-	rowBackgroundColor:'white'
-});
-
 try {
-    suds.invoke(soapAction, callparams, function(xmlDoc) {
+    suds.invoke('getSnapshot', callparams, function(xmlDoc) {
         var results = xmlDoc.documentElement.getElementsByTagName('return');
         if (results && results.length>0) {
             

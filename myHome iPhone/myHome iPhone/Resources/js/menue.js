@@ -1,3 +1,5 @@
+Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+
 Titanium.include('functions.js');
 
 //Titanium.UI.setBackgroundImage('images/darkfade.jpg');
@@ -87,7 +89,21 @@ var fourthItemLabel = Ti.UI.createLabel({
 fourthItemRow.add(fourthItemLabel);
 
 main_menu.appendRow(fourthItemRow);
-// Ende der dritten Zeile
+// Ende der vierten Zeile
+
+// Vierte Zeile ... Beschreibung siehe oben!
+var fifthItemRow = Ti.UI.createTableViewRow({
+	hasChild: true
+});
+
+var fifthItemLabel = Ti.UI.createLabel({
+	left: 9,
+	text: "User Settings"
+});
+fifthItemRow.add(fifthItemLabel);
+
+main_menu.appendRow(fifthItemRow);
+// Ende der vierten Zeile
 
 //Informative Ausgabe von Username und UserToken
 var detailLabel = Titanium.UI.createLabel({
@@ -120,6 +136,7 @@ addEventToRow(firstItemRow, 'Ebenen', 'menue_ebenen.js', Titanium.UI.currentWind
 addEventToRow(secondItemRow, 'Räume', 'menue_raume.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
 addEventToRow(thirdItemRow, 'Lichter', 'menue_lichter.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
 addEventToRow(fourthItemRow, 'Kameras', 'menue_kameras.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
+addEventToRow(fifthItemRow, 'User Settings', 'menue_user_settings.js', Titanium.UI.currentWindow, navGroup, fenster_hauptmenu);
  
 fenster_hauptmenu.navGroup = navGroup;
 baseWin.add(navGroup);
