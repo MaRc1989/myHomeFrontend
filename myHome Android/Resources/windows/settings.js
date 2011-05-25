@@ -41,14 +41,6 @@ var saveBtn = Titanium.UI.createButton({
 });
 sub_win1.add(saveBtn);
 
-var statusLabel = Titanium.UI.createLabel({
-	color: '#fff',
-	top: 210,
-	left: 25
-});
-
-sub_win1.add(statusLabel);
-
 saveBtn.addEventListener('click',function(e)
 {
 	if (loginUrl.value != '')

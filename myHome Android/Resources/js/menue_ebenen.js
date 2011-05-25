@@ -1,8 +1,36 @@
 Titanium.include('functions.js');
+Titanium.include('suds.js');
 
-var win1 = Titanium.UI.currentWindow;
+// Hilfsarray um Ebenen aus SOAP Call zu speichern
+var ebenenArray = [];
+var sectionArray = [];
+var itemRowArray = [];
+var itemLabelArray = [];
+var ebenen = [];
 
-win1.orientationModes = [Titanium.UI.PORTRAIT];
+/*
+ * Definiton der URL Endpoint.
+ */
+var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+
+/*
+ * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
+ * userToken muss angepasst werden !!!
+ */	
+var callparams = {
+    userToken: '1234'
+};
+/*
+ * Neues Objekt SudsClient wird erzeugt (SOAP Client).
+ */
+var suds = new SudsClient({
+	endpoint: url,
+	targetNamespace: Titanium.App.Properties.getString('url')
+});
+
+var fenster_ebenenmenu = Titanium.UI.currentWindow;
+
+fenster_ebenenmenu.orientationModes = [Titanium.UI.PORTRAIT];
 
 Titanium.UI.orientation = Titanium.UI.PORTRAIT;
 
@@ -13,94 +41,103 @@ var logo = Titanium.UI.createImageView({
 	top: '10px'
 });
 
-win1.add(logo);
+fenster_ebenenmenu.add(logo);
 
-var section1 = Titanium.UI.createTableViewSection({
-	headerTitle: 'Ebene 1'
-});
- 
-// create the main menu container
-var main_menu = Ti.UI.createTableView({
-	left:0,
-	top: '79px'
-});
-
-// first option row
-var firstItemRow = Ti.UI.createTableViewRow({
-	hasChild: true,
-	leftImage: "/images/page_layout.png"
-});
-
-var firstItemLabel = Ti.UI.createLabel({
-	left: 35,
-	text: "Grundriss"
-});
-firstItemRow.add(firstItemLabel);
-
-section1.add(firstItemRow);
-// end first option row
-
-// second option row
-var secondItemRow = Ti.UI.createTableViewRow({
-	hasChild: true,
-	leftImage: "/images/lightbulb.png"
-});
-
-var secondItemLabel = Ti.UI.createLabel({
-	left: 35,
-	text: "Lichter"
-});
-secondItemRow.add(secondItemLabel);
-
-section1.add(secondItemRow);
-
-// end second option row
-
-// third option row
-var thirdItemRow = Ti.UI.createTableViewRow({
-	hasChild: true,
-	leftImage: "/images/box.png"
-});
-
-var thirdItemLabel = Ti.UI.createLabel({
-	left: 35,
-	text: "Raeume"
-});
-thirdItemRow.add(thirdItemLabel);
-
-section1.add(thirdItemRow);
-// end third option row
-
-// fourth option row
-var fourthItemRow = Ti.UI.createTableViewRow({
-	hasChild: true,
-	leftImage: "/images/preso.png"
-});
-
-var fourthItemLabel = Ti.UI.createLabel({
-	left: 35,
-	text: "Kameras"
-});
-fourthItemRow.add(fourthItemLabel);
-
-section1.add(fourthItemRow);
-// end fourth option row
-
-main_menu.setData([section1]);
-
-win1.add(main_menu);
-
-firstItemRow.addEventListener('click', function (e) {
-	Titanium.API.info("Oeffne Grundriss");
-	openWindow('js/menue_grundriss.js', 'Grundriss', true);
-});
-
-secondItemRow.addEventListener('click', function (e) {
-	Titanium.API.info("Oeffne Lichter");
-	openWindow('js/menue_lichter.js', 'Lichter', true);
-});
-
-fourthItemRow.addEventListener('click', function (e) {
-	Titanium.API.info("Oeffne Kameras");
-	openWindow('js/menue_kameras.js', 'Kameras', true);
-});
+try {
+    suds.invoke('getBlueprints', callparams, function(xmlDoc) {
+        var results = xmlDoc.documentElement.getElementsByTagName('item');
+        if (results && results.length>0) {
+            
+			for(var n = 0; n < results.length; n++){
+				
+				var result = results.item(n);
+				Titanium.API.info('result: ' + result.text);
+							
+				var ebenenName = result.getElementsByTagName('name').item(0).text;
+				info('name: ' + ebenenName);
+				
+				var ebenenID = result.getElementsByTagName('id').item(0).text;
+				info('ID: ' + ebenenID);
+								
+				var ebenenPrimary = result.getElementsByTagName('primary').item(0).text;
+				info('primary: ' + ebenenPrimary);
+				
+				if(ebenenPrimary == 'true'){
+					
+					ebenen[ebenenID] = Titanium.UI.createTableViewSection({
+						headerTitle: ebenenName,
+						color: '#fff'
+					});
+					
+					var itemRow1 = Ti.UI.createTableViewRow({
+						hasChild: true
+					});
+				
+					var itemLabel1 = Ti.UI.createLabel({
+						left: 9,
+						text: "Grundriss"
+					});
+					
+					var itemRow2 = Ti.UI.createTableViewRow({
+						hasChild: true
+					});
+				
+					var itemLabel2 = Ti.UI.createLabel({
+						left: 9,
+						text: "Räume"
+					});
+					
+					var itemRow3 = Ti.UI.createTableViewRow({
+						hasChild: true
+					});
+				
+					var itemLabel3 = Ti.UI.createLabel({
+						left: 9,
+						text: "Lichter"
+					});
+					
+					var itemRow4 = Ti.UI.createTableViewRow({
+						hasChild: true
+					});
+				
+					var itemLabel4 = Ti.UI.createLabel({
+						left: 9,
+						text: "Kameras"
+					});
+										
+					itemRow1.add(itemLabel1);
+					itemRow2.add(itemLabel2);
+					itemRow3.add(itemLabel3);
+					itemRow4.add(itemLabel4);
+					
+					addEventToRow(itemRow1, ebenenName, 'menue_grundriss.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
+					addEventToRow(itemRow2, ebenenName, 'menue_raume.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
+					addEventToRow(itemRow3, ebenenName, 'menue_lichter.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
+					addEventToRow(itemRow4, ebenenName, 'menue_kameras.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
+					
+					ebenen[ebenenID].add(itemRow1);
+					ebenen[ebenenID].add(itemRow2);
+					ebenen[ebenenID].add(itemRow3);
+					ebenen[ebenenID].add(itemRow4);
+												
+					
+					ebenenArray.push(ebenen[ebenenID]);
+					
+				} 						
+				
+											
+			}
+			
+			// create the main menu container
+								
+			main_menu.setData(ebenenArray);
+								
+			fenster_ebenenmenu.add(main_menu);
+			
+        } else {
+            Titanium.API.info('Error: SOAP call.');
+        }
+    });
+} catch(e) {
+    Ti.API.error('Error: ' + e);
+}
