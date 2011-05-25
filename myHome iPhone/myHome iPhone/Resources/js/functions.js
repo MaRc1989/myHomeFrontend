@@ -1,5 +1,9 @@
 Titanium.include('suds.js');
-// Um nicht nur den Text einer Zeile klickbar zu machenm, sondern auch die ganze Zeile. 
+
+/*
+ * Erzeugt Event für Menüeintrag
+ * Neues Fenster wird in Menüstruktur geöffnet, dadurch gibt es ein "Zurück"-Button
+*/
 function addEventToRow(theRow,theTitle, theUrl, theCurrentWindow, theNavGroup, theRootWindow, paramValue)
 {
     //theOrientationModes = (typeof theOrientationModes == 'undefined') ? Titanium.UI.PORTRAIT : theOrientationModes;
@@ -21,7 +25,7 @@ function addEventToRow(theRow,theTitle, theUrl, theCurrentWindow, theNavGroup, t
 	
     });
 };
-// WTF?
+
 function addShowModalWindow(theLight, theModalWindow){
 	
 	theLight.addEventListener('click',function(e)
@@ -39,13 +43,119 @@ function info(params){
 	Titanium.API.info(params);
 }
 
+function createNode(win1, result){
+	var nodesType = result.getElementsByTagName('type').item(0).text;
+	var nodesCategory = result.getElementsByTagName('category').item(0).text;
+	if(nodesType == 'relais'){
+		// Erstelle Lichter auf dem Grundriss
+		var nodesID = result.getElementsByTagName('id').item(0).text;
+		
+		var nodesName = result.getElementsByTagName('name').item(0).text;
+		
+		var nodesX = result.getElementsByTagName('x').item(0).text;
+		
+		var nodesY = result.getElementsByTagName('y').item(0).text;
+		
+		var nodesStatus = result.getElementsByTagName('status');
+		for(var i = 0; i < nodesStatus.length; i++ ){
+			
+			var nodesStatusKey = result.getElementsByTagName('key').item(0).text;
+			
+			var nodesStatusValue = result.getElementsByTagName('value').item(0).text;
+		
+		}
+		
+		createNodes(win1, nodesID, nodesName, nodesX, nodesY, nodesStatusValue, nodesStatusKey);
+		
+	} else if (nodesType == 'heatingonoff') {
+		// Erstelle Heizungen af dem Grundriss
+		var nodesName = result.getElementsByTagName('name').item(0).text;
+		
+		var nodesX = result.getElementsByTagName('x').item(0).text;
+		
+		var nodesY = result.getElementsByTagName('y').item(0).text;
+		
+		createHeatingOff(win1, nodesName, nodesX, nodesY);
+		
+	} else if (nodesCategory == 'camera') {
+		// Erstelle Kameras auf dem Grundriss
+		var nodesName = result.getElementsByTagName('name').item(0).text;
+		
+		var nodesX = result.getElementsByTagName('x').item(0).text;
+		
+		var nodesY = result.getElementsByTagName('y').item(0).text;
+		
+		var nodesID = result.getElementsByTagName('id').item(0).text;
+		
+		createCamera(win1, nodesName, nodesX, nodesY, nodesID);
+		
+	}
+}
+function createHeatingOff(win1, name, posX, posY){
+	posX = posX * win1.navGroup.width;
+	posY = posY * win1.navGroup.height;
+	
+	var imageHeating = Titanium.UI.createImageView({
+		image: "../images/fire.png",
+		width: '20px',
+		height: '20px',
+		top: posY - 10,
+		left: posX - 10
+	});
+	
+	var labelHeating = Titanium.UI.createLabel({
+		text: name,
+		height:'auto',
+		width:'auto',
+		left: 0,
+		top: posY - 30,
+		visible: true,
+		zIndex: 12
+	});
+	
+	labelHeating.left = posX - labelHeating.size.width/2;
+
+	
+	win1.add(imageHeating);
+	//win1.add(labelHeating);
+}
+
+function createCamera(win1, name, posX, posY, nodesID){
+	posX = posX * win1.navGroup.width;
+	posY = posY * win1.navGroup.height;
+	
+	var imageCamera = Titanium.UI.createView({
+		backgroundImage: "../images/camera.png",
+		width: '24px',
+		height: '18px',
+		top: posY - 9,
+		left: posX - 12
+	});
+	
+	var labelCamera = Titanium.UI.createLabel({
+		text: name,
+		height:'auto',
+		width:'auto',
+		left: 0,
+		top: posY - 30,
+		visible: true,
+		zIndex: 12
+	});
+	
+	labelCamera.left = posX - labelCamera.size.width/2;
+	
+	addEventToRow(imageCamera, name, 'menue_kamera.js', Titanium.UI.currentWindow, win1.navGroup, win1.rootWindow, nodesID);	
+	
+	win1.add(imageCamera);
+	//win1.add(labelCamera);
+}
+
 var circlesarray = [];
 var circlesLabelsarray = [];
 var modalWindowsArray = [];
 var switchArray =[];
 var buttonArray = [];
 
-// Erzeugt die Lichter und bildet diese auf dem Grundriss ab. 
 function createNodes(win1, id, name, posX, posY, value, key){
 	Titanium.API.info("Create Light: " + name + "(Light On/Off: " + value +")");
 	
@@ -84,11 +194,15 @@ function createNodes(win1, id, name, posX, posY, value, key){
 	circlesLabelsarray[id] = Titanium.UI.createLabel({
 		text: name,
 		height:'auto',
-		left: posX - 30,
+		width:'auto',
+		left: 0,
 		top: posY - 30,
 		visible: true,
 		zIndex: 12
 	});
+	
+	// Automatische Berechnung der x-Position des Labels durch die Breite des Labels
+	circlesLabelsarray[id].left = posX - circlesLabelsarray[id].size.width/2;
 			
 	circlesarray[id].addEventListener('click',function(e)
     {
@@ -104,19 +218,18 @@ function createNodes(win1, id, name, posX, posY, value, key){
 		}
 		
 		info("Anscheinend wird das hier ausgeführt...wieso?");
-		
 	  /*
-       * SOAP Request um Licht auszumachen  --->WTF???
+       * SOAP Request um Licht an-/auszumachen
        */
 	  
 	  /*
 	   * Definiton der URL Endpoint.
 	   */
-	  var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+	  // var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
 	
 	  /*
 	   * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
-	   * userToken muss angepasst werden !!  !
+	   * userToken muss angepasst werden !!!
 	   */
 	  	  
 	  var callparams = {
@@ -184,10 +297,9 @@ function createNodes(win1, id, name, posX, posY, value, key){
 	});	
 	
 	win1.add(circlesarray[id]);
-	win1.add(circlesLabelsarray[id]);
+	//win1.add(circlesLabelsarray[id]);
 }
 
-// Farbwechsel des Lichts auf dem Grundriss von rot nach gruen oder umgekehrt
 function updateCircle(id, value){
   var farbe;
   if (value == 1){

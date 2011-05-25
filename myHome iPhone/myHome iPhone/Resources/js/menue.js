@@ -5,7 +5,7 @@ Titanium.include('functions.js');
 //Titanium.UI.setBackgroundImage('images/darkfade.jpg');
 
 var baseWin = Titanium.UI.currentWindow;
-/*  Auf dem Basis Window, Window des Login-Menüs, wird ein neues Fenster erzeugt für das Main Menu mit der Auswahl Ebenen,
+/* Auf dem Basis Window, Window des Login-Menüs, wird ein neues Fenster erzeugt für das Main Menu mit der Auswahl Ebenen,
 Räume, Lichter, Kamera
 */
 var fenster_hauptmenu = Titanium.UI.createWindow({  
