@@ -96,8 +96,8 @@ function createHeatingOff(win1, name, posX, posY){
 	posY = posY * win1.navGroup.height;
 	
 	var imageHeating = Titanium.UI.createImageView({
-		image: "../images/fire.png",
-		width: '20px',
+		image: "../images/heating.png",
+		width: '35px',
 		height: '20px',
 		top: posY - 10,
 		left: posX - 10
