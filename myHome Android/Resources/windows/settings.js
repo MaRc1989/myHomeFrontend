@@ -31,7 +31,19 @@ var loginUrl = Titanium.UI.createTextField({
 sub_row1.add(sub_label1);
 sub_row1.add(loginUrl);
 sub_table1.appendRow(sub_row1);
+
+var statusLabel = Titanium.UI.createLabel({
+	color: '#fff',
+	top: 150,
+	left: 25,
+	width: '80%',
+	height: 100
+});
+
+sub_table1.add(statusLabel);
+
 sub_win1.add(sub_table1);
+
 var saveBtn = Titanium.UI.createButton({
 	title:'Save',
 	top:170,
@@ -58,4 +70,5 @@ saveBtn.addEventListener('click',function(e)
 	{
 		Titanium.API.info('No New URL!');
 	}
+	sub_win1.close();
 });

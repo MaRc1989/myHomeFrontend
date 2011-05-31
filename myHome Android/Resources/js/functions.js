@@ -25,7 +25,7 @@ activity.onCreateOptionsMenu = function(e) {
     });
 };
 
-function createAppSingleWindow() {
+function createAppSingleWindow(win1) {
 	
     if (Titanium.Platform.osname != 'android') {
         win1.hideTabBar();
@@ -51,6 +51,8 @@ function openWindow(url, title, anim) {
         url: url,
 		backgroundImage: 'images/darkfade.jpg'
     });
+	
+	win2.setBackgroundImage('images/darkfade.jpg');
 
     if (Titanium.UI.currentTab != null) {
         Titanium.UI.currentTab.open(win2,{animated:anim});

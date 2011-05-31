@@ -34,7 +34,7 @@ var fenster_loginmenu = Titanium.UI.createWindow({
 });
 
 fenster_loginmenu.setBackgroundImage('images/darkfade.jpg');
-createAppSingleWindow();
+createAppSingleWindow(fenster_loginmenu);
 
 // create tab group
 // var tabGroup = Titanium.UI.createTabGroup();
@@ -219,15 +219,22 @@ loginBtn.addEventListener('click', function(e) {
 /* Im Folgenden der suds Client (SOAP Client), der die SOAP Abfragen ausführt und Werte zurück liefert. 
 	Login-Vorgang und Aufruf des Hauptmenüfensters
 */	
+
+	Titanium.API.info(Titanium.App.Properties.getString('url'));
+
 	var suds = new SudsClient({
 	    endpoint: url,
 	    targetNamespace: Titanium.App.Properties.getString('url')
 	});
 	
+	Titanium.API.info("TEST1111");
+	
 	try {
 	    suds.invoke('login', callparams, function(xmlDoc) {
 	        
 			var results = xmlDoc.documentElement.getElementsByTagName('return');
+Titanium.API.info("TEST22222");
+			Titanium.API.info(results);
 
 	        if (results && results.length>0) {
 				var isAdmin = results.item(0).getElementsByTagName('admin');
@@ -256,7 +263,7 @@ loginBtn.addEventListener('click', function(e) {
 					Titanium.API.info("error: " + errorString.item(0).text);
 					alert(errorString.item(0).text);
 		        }
-		    });
+		});
 	} catch(e) {
 	    alert(e);
 		Ti.API.error('Error: ' + e);
