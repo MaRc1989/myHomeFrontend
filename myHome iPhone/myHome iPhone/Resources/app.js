@@ -267,9 +267,6 @@ loginBtn.addEventListener('click', function(e) {
 				
 				Titanium.App.Properties.setString('username', username.value);
 				
-				//Rein oder raus???
-				//alert("Login erfolgreich! \n isAdmin: " + isAdmin.item(0).text + " \n userToken: " + userToken.item(0).text)
-				
 				// Parameter für das Fenster des Hauptmenüs 
 				fenster_hauptmenu.title			=	'Base Menu';
 				fenster_hauptmenu.url 			=	'js/menue.js';
