@@ -95,13 +95,13 @@ function SudsClient(_options) {
   
   // Client Konfiguration
   var config = extend({
-    endpoint:'https://localhost:8888/service',
-    targetNamespace: 'https://localhost:8888/service?wsdl',
+    endpoint:'http://localhost:8888/service',
+    targetNamespace: 'http://localhost:8888/service?wsdl',
     envelopeBegin: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fron="http://frontend.myhome.wi08e.de/"><soapenv:Header/><soapenv:Body>',
     envelopeEnd: '</soapenv:Body></soapenv:Envelope>'
   },_options);
   
-  // Aufruf web service
+  // Aufruf web service 'login', callparams (username+passwort), xml function
   this.invoke = function(_soapAction,_body,_callback) {  
 	
 	//Erstelle request body 
@@ -113,7 +113,7 @@ function SudsClient(_options) {
       body += convertToXml(_body);
       body += '</fron:'+_soapAction+'>';
     }
-	
+		
     var ebegin = config.envelopeBegin;
     config.envelopeBegin = ebegin.replace('PLACEHOLDER', config.targetNamespace);
     
@@ -125,23 +125,18 @@ function SudsClient(_options) {
     else {
       soapAction = config.targetNamespace+_soapAction;
     }
-    
+    	
     //Sende das XML document  per HTTP_Post zum service endpoint
     var xhr = getXHR();
     xhr.onload = function() {
+		Titanium.API.info("onload test");
       _callback.call(this, xmlDomFromString(this.responseText));
     };
     xhr.open('POST',config.endpoint);
 	xhr.setRequestHeader('Content-Type', 'text/xml;charset=UTF-8');
-	/*
-	 * 2011-05-24
-	 * Wieso bleibt SOAPAction undefiniert??? Mit Marek klären
-	 *
-	*/
-	// xhr.setRequestHeader('SOAPAction', soapAction);
+	xhr.setRequestHeader('SOAPAction', soapAction);
 	xhr.send(config.envelopeBegin+body+config.envelopeEnd);
 	Titanium.API.info(config.envelopeBegin+body+config.envelopeEnd);
-	Titanium.API.info("HANS!");
   };
   
 }

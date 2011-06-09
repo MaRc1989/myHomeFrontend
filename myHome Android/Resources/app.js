@@ -1,7 +1,11 @@
 Titanium.include('js/functions.js'); // Funktionen importieren
 Titanium.include('js/suds.js'); // SOAP Client
 
+var fenster_array = new Array();
+fenster_array[0] = 'fenster_loginmenu';
+
 Titanium.App.Properties.setInt('countWindow',1);
+Titanium.App.Properties.setList('fenster_liste', fenster_array);
 
 // Datenbank zuweisen
 var db = Titanium.Database.install("db/myHome4.sqlite", 'myHome4');
@@ -34,14 +38,9 @@ var fenster_loginmenu = Titanium.UI.createWindow({
 });
 
 fenster_loginmenu.setBackgroundImage('images/darkfade.jpg');
-createAppSingleWindow(fenster_loginmenu);
-
-// create tab group
-// var tabGroup = Titanium.UI.createTabGroup();
-
+fenster_loginmenu.open({modal:true});
 
 fenster_loginmenu.orientationModes = [Titanium.UI.PORTRAIT];
-
 Titanium.UI.orientation = Titanium.UI.PORTRAIT;
 
 var logo = Titanium.UI.createImageView({
@@ -226,15 +225,11 @@ loginBtn.addEventListener('click', function(e) {
 	    endpoint: url,
 	    targetNamespace: Titanium.App.Properties.getString('url')
 	});
-	
-	Titanium.API.info("TEST1111");
-	
+		
 	try {
-	    suds.invoke('login', callparams, function(xmlDoc) {
+	    suds.invoke('login', callparams, function(xmlDoc){
 	        
 			var results = xmlDoc.documentElement.getElementsByTagName('return');
-Titanium.API.info("TEST22222");
-			Titanium.API.info(results);
 
 	        if (results && results.length>0) {
 				var isAdmin = results.item(0).getElementsByTagName('admin');
@@ -255,6 +250,8 @@ Titanium.API.info("TEST22222");
 				//alert("Login erfolgreich! \n isAdmin: " + isAdmin.item(0).text + " \n userToken: " + userToken.item(0).text)
 				
 				//Aufruf Hauptmenüfenster
+				Titanium.API.info("Öffne Hauptmenü");
+				//openWindow('windows/settings.js', 'Einstellungen', true);
 				openWindow('js/menue.js', 'Hauptmenü', true);
 				
 	        	} else {

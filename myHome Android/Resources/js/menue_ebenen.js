@@ -18,7 +18,7 @@ var url = Titanium.App.Properties.getString('url') + '/services?wsdl';
  * userToken muss angepasst werden !!!
  */	
 var callparams = {
-    userToken: '1234'
+    userToken: Titanium.App.Properties.getString('userToken')
 };
 /*
  * Neues Objekt SudsClient wird erzeugt (SOAP Client).
@@ -31,7 +31,6 @@ var suds = new SudsClient({
 var fenster_ebenenmenu = Titanium.UI.currentWindow;
 
 fenster_ebenenmenu.orientationModes = [Titanium.UI.PORTRAIT];
-
 Titanium.UI.orientation = Titanium.UI.PORTRAIT;
 
 var logo = Titanium.UI.createImageView({
@@ -42,6 +41,12 @@ var logo = Titanium.UI.createImageView({
 });
 
 fenster_ebenenmenu.add(logo);
+
+var main_menu = Ti.UI.createTableView({
+	top: 80,
+	left: 0,
+	scrollable:true
+});
 
 try {
     suds.invoke('getBlueprints', callparams, function(xmlDoc) {
@@ -54,13 +59,13 @@ try {
 				Titanium.API.info('result: ' + result.text);
 							
 				var ebenenName = result.getElementsByTagName('name').item(0).text;
-				info('name: ' + ebenenName);
+				Titanium.API.info('name: ' + ebenenName);
 				
 				var ebenenID = result.getElementsByTagName('id').item(0).text;
-				info('ID: ' + ebenenID);
+				Titanium.API.info('ID: ' + ebenenID);
 								
 				var ebenenPrimary = result.getElementsByTagName('primary').item(0).text;
-				info('primary: ' + ebenenPrimary);
+				Titanium.API.info('primary: ' + ebenenPrimary);
 				
 				if(ebenenPrimary == 'true'){
 					
@@ -70,6 +75,7 @@ try {
 					});
 					
 					var itemRow1 = Ti.UI.createTableViewRow({
+						left: 0,
 						hasChild: true
 					});
 				
@@ -79,6 +85,7 @@ try {
 					});
 					
 					var itemRow2 = Ti.UI.createTableViewRow({
+						left: 0,
 						hasChild: true
 					});
 				
@@ -88,6 +95,7 @@ try {
 					});
 					
 					var itemRow3 = Ti.UI.createTableViewRow({
+						left: 0,
 						hasChild: true
 					});
 				
@@ -97,6 +105,7 @@ try {
 					});
 					
 					var itemRow4 = Ti.UI.createTableViewRow({
+						left: 0,
 						hasChild: true
 					});
 				
@@ -109,11 +118,26 @@ try {
 					itemRow2.add(itemLabel2);
 					itemRow3.add(itemLabel3);
 					itemRow4.add(itemLabel4);
+
+					itemRow1.addEventListener('click', function (e) {
+						Titanium.API.info(ebenenName + 'Grundriss');
+						openWindow('menue_grundriss.js', ebenenName, true);
+					});
 					
-					addEventToRow(itemRow1, ebenenName, 'menue_grundriss.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
-					addEventToRow(itemRow2, ebenenName, 'menue_raume.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
-					addEventToRow(itemRow3, ebenenName, 'menue_lichter.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
-					addEventToRow(itemRow4, ebenenName, 'menue_kameras.js', Titanium.UI.currentWindow, fenster_ebenenmenu.rootWindow, ebenenID);
+					itemRow2.addEventListener('click', function (e) {
+						Titanium.API.info(ebenenName + 'Räume');
+						openWindow('menue_raume.js', ebenenName, true);
+					});
+					
+					itemRow3.addEventListener('click', function (e) {
+						Titanium.API.info(ebenenName + 'Lichter');
+						openWindow('menue_lichter.js', ebenenName, true);
+					});
+					
+					itemRow4.addEventListener('click', function (e) {
+						Titanium.API.info(ebenenName + 'Kameras');
+						openWindow('menue_kameras.js', ebenenName, true);
+					});
 					
 					ebenen[ebenenID].add(itemRow1);
 					ebenen[ebenenID].add(itemRow2);

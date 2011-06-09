@@ -1,13 +1,12 @@
-Titanium.include('js/functions.js');
+Titanium.include('functions.js');
 
 var fenster_hauptmenu = Titanium.UI.currentWindow;
 
 fenster_hauptmenu.orientationModes = [Titanium.UI.PORTRAIT];
-
 Titanium.UI.orientation = Titanium.UI.PORTRAIT;
 
 var logo = Titanium.UI.createImageView({
-	image: "images/logo.png",
+	image: "../images/logo.png",
 	width: '59',
 	height: '59',
 	top: '10'
@@ -24,7 +23,7 @@ var main_menu = Ti.UI.createTableView({
 // first option row
 var firstItemRow = Ti.UI.createTableViewRow({
 	hasChild: true,
-	leftImage: "/images/layers_1.png"
+	leftImage: "../images/layers_1.png"
 });
 var firstItemLabel = Ti.UI.createLabel({
 	left: 40,
@@ -37,7 +36,7 @@ main_menu.appendRow(firstItemRow);
 // second option row
 var secondItemRow = Ti.UI.createTableViewRow({
 	hasChild: true,
-	leftImage: "/images/box.png"
+	leftImage: "../images/box.png"
 });
 var secondItemLabel = Ti.UI.createLabel({
 	left: 40,
@@ -50,7 +49,7 @@ main_menu.appendRow(secondItemRow);
 // third option row
 var thirdItemRow = Ti.UI.createTableViewRow({
 	hasChild: true,
-	leftImage: "/images/lightbulb.png"
+	leftImage: "../images/lightbulb.png"
 });
 var thirdItemLabel = Ti.UI.createLabel({
 	left: 40,
@@ -73,15 +72,15 @@ var fourthItemLabel = Ti.UI.createLabel({
 	text: "Heizungen"
 });
 
-fourthItemRow.add(fourthItemLabel);*/
+fourthItemRow.add(fourthItemLabel);
 
 main_menu.appendRow(fourthItemRow);
-// end fourth option row
+// end fourth option row */
 
 // fourth option row
 var fourthItemRow = Ti.UI.createTableViewRow({
 	hasChild: true,
-	leftImage: "/images/preso.png"
+	leftImage: "../images/preso.png"
 });
 var fourthItemLabel = Ti.UI.createLabel({
 	left: 40,
@@ -89,26 +88,26 @@ var fourthItemLabel = Ti.UI.createLabel({
 });
 fourthItemRow.add(fourthItemLabel);
 
-main_menu.appendRow(fifthItemRow);
+main_menu.appendRow(fourthItemRow);
 
 fenster_hauptmenu.add(main_menu);
 
 firstItemRow.addEventListener('click', function (e) {
 	Titanium.API.info("Öffne Ebenen");
-	openWindow('js/menue_ebenen.js', 'Ebenen', true);
+	openWindow('menue_ebenen.js', 'Ebenen', true);
 });
 
 secondItemRow.addEventListener('click', function (e) {
 	Titanium.API.info("Öffne Räume");
-	openWindow('js/menue_raeume.js', 'Räume', true);
+	openWindow('menue_raume.js', 'Räume', true);
 });
 
 thirdItemRow.addEventListener('click', function (e) {
 	Titanium.API.info("Öffne Lichter");
-	openWindow('js/menue_lichter.js', 'Lichter', true);
+	openWindow('menue_lichter.js', 'Lichter', true);
 });
 
 fourthItemRow.addEventListener('click', function (e) {
 	Titanium.API.info("Öffne Kameras");
-	openWindow('js/menue_kameras.js', 'Kameras', true);
+	openWindow('menue_kameras.js', 'Kameras', true);
 });
