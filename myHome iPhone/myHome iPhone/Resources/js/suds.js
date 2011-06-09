@@ -131,16 +131,20 @@ function SudsClient(_options) {
     xhr.onload = function() {
       _callback.call(this, xmlDomFromString(this.responseText));
     };
-    xhr.open('POST',config.endpoint);
+	
+	xhr.open('POST',config.endpoint);
+	
+	xhr.setTimeout(30000);
 	xhr.setRequestHeader('Content-Type', 'text/xml;charset=UTF-8');
 	/*
 	 * 2011-05-24
 	 * Wieso bleibt SOAPAction undefiniert??? Mit Marek klären
 	 *
 	*/
-	// xhr.setRequestHeader('SOAPAction', soapAction);
-	xhr.send(config.envelopeBegin+body+config.envelopeEnd);
+	xhr.setRequestHeader('SOAPAction', soapAction);
 	
+    
+	xhr.send(config.envelopeBegin+body+config.envelopeEnd);
   };
   
 }

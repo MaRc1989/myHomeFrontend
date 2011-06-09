@@ -147,7 +147,7 @@ fenster_loginmenu.add(checkbox);
 
 var loginBtn = Titanium.UI.createButton({
 	title:'Login',
-	top:270,
+	// top:270,
 	width:'90%',
 	height:35,
 	borderRadius:1
