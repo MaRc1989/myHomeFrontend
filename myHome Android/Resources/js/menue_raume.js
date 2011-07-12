@@ -79,27 +79,32 @@ try {
 					var nodesID = result.getElementsByTagName('id').item(0).text;
 					
 					var nodesRefferingBlueprintId = result.getElementsByTagName('referringBlueprintId').item(0).text;
+					Titanium.API.info('RefferingBuePrintID: ' + nodesRefferingBlueprintId)
 					
 					var nodesPrimary = result.getElementsByTagName('primary').item(0).text;
 					
 					if (nodesPrimary == 'false') {
 						itemRow[nodesID] = Ti.UI.createTableViewRow({
 							left: 0,
-							hasChild: true
+							hasChild: true,
+							leftImage: "../images/box.png"
 						});
 						
 						var firstItemLabel = Ti.UI.createLabel({
-							left: 9,
+							left: 40,
 							text: nodesName
 						});
 						
 						itemRow[nodesID].add(firstItemLabel);
 						main_menu.appendRow(itemRow[nodesID]);
 						
+						/*
 						itemRow[nodesID].addEventListener('click', function (e) {
 							Titanium.API.info(nodesName);
-							openWindow('menue_grundriss.js', nodesName, true);
+							openWindow('menue_grundriss.js', nodesName, true, nodesRefferingBlueprintId);
 						});
+						*/
+						addEventToRow(itemRow[nodesID], nodesName, 'menue_grundriss.js', Titanium.UI.currentWindow, nodesRefferingBlueprintId);
 						
 					}
 					
@@ -119,6 +124,7 @@ try {
 						var nodesName2 = resultA.getElementsByTagName('name').item(0).text;
 							
 						var nodesID2 = resultA.getElementsByTagName('id').item(0).text;
+						Titanium.API.info('nodesID2: ' + nodesID2)
 								
 						var nodesPrimary2 = resultA.getElementsByTagName('primary').item(0).text;
 								
@@ -136,11 +142,14 @@ try {
 							itemRow[nodesID2].add(firstItemLabel2);
 							main_menu.appendRow(itemRow[nodesID2]);
 						
+							/*
 							itemRow[nodesID2].addEventListener('click', function (e) {
-								Titanium.API.info(nodesName2);
-								openWindow('menue_grundriss.js', nodesName2, true);
+							Titanium.API.info(nodesName2);
+							openWindow('menue_grundriss.js', nodesName2, true, nodesID2);
 							});
-									
+							*/
+							
+							addEventToRow(itemRow[nodesID], nodesName, 'menue_grundriss.js', Titanium.UI.currentWindow, nodesID2);
 							
 						} // for (var i = 0; i < resultsA.length; i++)
 						
@@ -159,7 +168,7 @@ try {
     Ti.API.error('Error: ' + e);
 }
 
-
+/*
 var logoutBtn = Titanium.UI.createButton({
 	title:'Logout'
 });
@@ -170,5 +179,6 @@ logoutBtn.addEventListener('click',function(e)
 {
 	Ti.App.fireEvent('eventLogout');
 });
+*/
 
 fenster_raeumemenu.add(main_menu);

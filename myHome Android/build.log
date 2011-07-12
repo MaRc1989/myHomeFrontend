@@ -1,0 +1,166 @@
+Logfile initialized
+[INFO] logfile = C:\MyHome\myHome Android\build.log
+[DEBUG] C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\builder.py simulator myHome iPhone C:\Program Files (x86)\Android\android-sdk-windows C:\MyHome\myHome Android com.dhbwmannheim.myhome 8 WVGA854
+[INFO] Building myHome iPhone for Android ... one moment
+[INFO] Titanium SDK version: 1.7.0 (06/06/11 18:05 64155ee)
+[DEBUG] Waiting for device to be ready ...
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[DEBUG] Device connected... (waited 35 seconds)
+[DEBUG] waited 35.096000 seconds on emulator to get ready
+[INFO] Waiting for the Android Emulator to become available
+[DEBUG] com.dhbwmannheim.myhome installed? False
+[INFO] Fastdev server running, deploying in Fastdev mode
+[INFO] Copying project resources..
+[INFO] Detected tiapp.xml change, forcing full re-build...
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\android\appicon.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\appicon.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\android\default.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\default.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\app.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\app.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\db\myHome.sqlite => C:\MyHome\myHome Android\build\android\bin\assets\Resources\db\myHome.sqlite
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\db\myHome2.sqlite => C:\MyHome\myHome Android\build\android\bin\assets\Resources\db\myHome2.sqlite
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\db\myHome3.sqlite => C:\MyHome\myHome Android\build\android\bin\assets\Resources\db\myHome3.sqlite
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\db\myHome4.sqlite => C:\MyHome\myHome Android\build\android\bin\assets\Resources\db\myHome4.sqlite
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\default_app_logo.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\default_app_logo.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\box.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\box.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\checkbox_checked.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\checkbox_checked.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\checkbox_unchecked.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\checkbox_unchecked.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\darkfade.jpg => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\darkfade.jpg
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\heating.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\heating.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\layers_1.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\layers_1.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\lightbulb.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\lightbulb.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\logo.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\logo.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\page_layout.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\page_layout.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\images\preso.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\images\preso.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\functions.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\functions.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\menue.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\menue.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\menue_ebenen.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\menue_ebenen.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\menue_grundriss.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\menue_grundriss.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\menue_kamera.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\menue_kamera.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\menue_kameras.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\menue_kameras.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\menue_lichter.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\menue_lichter.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\menue_raume.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\menue_raume.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\js\suds.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\js\suds.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\KS_nav_ui.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\KS_nav_ui.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\KS_nav_views.png => C:\MyHome\myHome Android\build\android\bin\assets\Resources\KS_nav_views.png
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\menue.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\menue.js
+[TRACE] COPYING CREATED FILE: C:\MyHome\myHome Android\Resources\windows\settings.js => C:\MyHome\myHome Android\build\android\bin\assets\Resources\windows\settings.js
+[TRACE] Generating Java Classes
+[DEBUG] Processing Android resource drawables
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-long-land-hdpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-long-land-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-long-land-ldpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-long-land-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-long-port-hdpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-long-port-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-long-port-ldpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-long-port-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-notlong-land-hdpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-notlong-land-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-notlong-land-ldpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-notlong-land-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-notlong-land-mdpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-notlong-land-mdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-notlong-port-hdpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-notlong-port-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-notlong-port-ldpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-notlong-port-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\MyHome\myHome Android\Resources\android\images\res-notlong-port-mdpi\default.png => C:\MyHome\myHome Android\build\android\res\drawable-notlong-port-mdpi\default_d44e27d97b.png
+[DEBUG] copying app icon: C:\MyHome\myHome Android\build\android\bin\assets\Resources\default_app_logo.png
+[DEBUG] generating theme.xml
+[DEBUG] found splash screen at C:\MyHome\myHome Android\build\android\bin\assets\Resources\default.png
+[TRACE] Writing out AndroidManifest.xml
+[DEBUG] adding C:\MyHome\myHome Android\build\android\gen\com\dhbwmannheim\myhome\MyhomeIphoneActivity.java to javac build list
+[DEBUG] adding C:\MyHome\myHome Android\build\android\gen\com\dhbwmannheim\myhome\MyhomeIphoneAppInfo.java to javac build list
+[DEBUG] adding C:\MyHome\myHome Android\build\android\gen\com\dhbwmannheim\myhome\MyhomeIphoneApplication.java to javac build list
+[DEBUG] adding C:\MyHome\myHome Android\build\android\gen\com\dhbwmannheim\myhome\R.java to javac build list
+[DEBUG] Building Java Sources: "C:\\MyHome\\myHome Android\\build\\android\\gen\\com\\dhbwmannheim\\myhome\\MyhomeIphoneActivity.java" "C:\\MyHome\\myHome Android\\build\\android\\gen\\com\\dhbwmannheim\\myhome\\MyhomeIphoneAppInfo.java" "C:\\MyHome\\myHome Android\\build\\android\\gen\\com\\dhbwmannheim\\myhome\\MyhomeIphoneApplication.java" "C:\\MyHome\\myHome Android\\build\\android\\gen\\com\\dhbwmannheim\\myhome\\R.java"
+[INFO] Waiting for SDCard to become available..
+[INFO] Compiling Android Resources... This could take some time
+[DEBUG] Android classes.dex built
+[DEBUG] creating unsigned apk: C:\MyHome\myHome Android\build\android\bin\app-unsigned.apk
+[DEBUG] from resource zip => assets/Resources/db/myHome.sqlite
+[DEBUG] from resource zip => assets/Resources/db/myHome2.sqlite
+[DEBUG] from resource zip => assets/Resources/db/myHome3.sqlite
+[DEBUG] from resource zip => assets/Resources/db/myHome4.sqlite
+[DEBUG] from resource zip => assets/Resources/images/box.png
+[DEBUG] from resource zip => assets/Resources/images/checkbox_checked.png
+[DEBUG] from resource zip => assets/Resources/images/checkbox_unchecked.png
+[DEBUG] from resource zip => assets/Resources/images/darkfade.jpg
+[DEBUG] from resource zip => assets/Resources/images/heating.png
+[DEBUG] from resource zip => assets/Resources/images/layers_1.png
+[DEBUG] from resource zip => assets/Resources/images/lightbulb.png
+[DEBUG] from resource zip => assets/Resources/images/logo.png
+[DEBUG] from resource zip => assets/Resources/images/page_layout.png
+[DEBUG] from resource zip => assets/Resources/images/preso.png
+[DEBUG] from resource zip => assets/Resources/js/functions.js
+[DEBUG] from resource zip => assets/Resources/js/menue.js
+[DEBUG] from resource zip => assets/Resources/js/menue_ebenen.js
+[DEBUG] from resource zip => assets/Resources/js/menue_grundriss.js
+[DEBUG] from resource zip => assets/Resources/js/menue_kamera.js
+[DEBUG] from resource zip => assets/Resources/js/menue_kameras.js
+[DEBUG] from resource zip => assets/Resources/js/menue_lichter.js
+[DEBUG] from resource zip => assets/Resources/js/menue_raume.js
+[DEBUG] from resource zip => assets/Resources/js/suds.js
+[DEBUG] from resource zip => assets/Resources/windows/settings.js
+[DEBUG] from resource zip => assets/Resources/KS_nav_ui.png
+[DEBUG] from resource zip => assets/Resources/KS_nav_views.png
+[DEBUG] from resource zip => assets/Resources/app.js
+[DEBUG] from resource zip => assets/Resources/appicon.png
+[DEBUG] from resource zip => assets/Resources/default.png
+[DEBUG] from resource zip => assets/Resources/default_app_logo.png
+[DEBUG] from resource zip => assets/Resources/menue.js
+[DEBUG] from resource zip => assets/tiapp.xml
+[DEBUG] from resource zip => res/drawable/appicon.png
+[DEBUG] from resource zip => res/drawable/background.png
+[DEBUG] from resource zip => res/drawable/facebook_icon.png
+[DEBUG] from resource zip => res/drawable/facebook_login.png
+[DEBUG] from resource zip => res/drawable/facebook_login_down.png
+[DEBUG] from resource zip => res/drawable/facebook_login_wide.png
+[DEBUG] from resource zip => res/drawable/facebook_login_wide_down.png
+[DEBUG] from resource zip => res/drawable/facebook_logout.png
+[DEBUG] from resource zip => res/drawable/facebook_logout_down.png
+[DEBUG] from resource zip => res/layout/titanium_tabgroup.xml
+[DEBUG] from resource zip => AndroidManifest.xml
+[DEBUG] from resource zip => resources.arsc
+[DEBUG] from resource zip => res/drawable-hdpi/facebook_icon.png
+[DEBUG] from resource zip => res/drawable-ldpi/facebook_icon.png
+[DEBUG] from resource zip => res/drawable-long-land-hdpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-long-land-ldpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-long-port-hdpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-long-port-ldpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-notlong-land-hdpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-notlong-land-ldpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-notlong-land-mdpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-notlong-port-hdpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-notlong-port-ldpi/default_d44e27d97b.png
+[DEBUG] from resource zip => res/drawable-notlong-port-mdpi/default_d44e27d97b.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/apache/Commons-NOTICE.txt
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/apache/HttpComponents-NOTICE.txt
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/apache/mime4j-NOTICE.txt
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/build.properties
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/background.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_check_buttonless_on.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_check_buttonless_on_18.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_check_buttonless_on_48.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_more.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_more_18.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_more_48.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_picker_normal.9.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_picker_pressed.9.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_picker_selected.9.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/default_icon.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\titanium.jar => org/appcelerator/titanium/res/drawable/photoDefault.png
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\modules\titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.js
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\modules\titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.min.js
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\modules\titanium-ui.jar => ti/modules/titanium/ui/widget/webview/json2.js
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\modules\titanium-facebook.jar => ti/modules/titanium/facebook/LICENSE
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\smalljs.jar => org/mozilla/javascript/resources/Messages.properties
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\smalljs.jar => org/mozilla/javascript/resources/Messages_fr.properties
+[DEBUG] from JAR C:\ProgramData\Titanium\mobilesdk\win32\1.7.0\android\modules\titanium-yahoo.jar => ti/modules/titanium/yahoo/yahoo.js
+[DEBUG] Waiting for device to be ready ...
+[TRACE] adb devices returned 1 devices/emulators
+[DEBUG] Device connected... (waited 0 seconds)
+[DEBUG] waited 0.012000 seconds on emulator to get ready
+[INFO] Installing application on device
+[INFO] Launching application ... myHome iPhone
+[TRACE] Launch output: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.dhbwmannheim.myhome/.MyhomeIphoneActivity }
+
+[INFO] Deployed myHome iPhone ... Application should be running.
+[INFO] Android Emulator has exited

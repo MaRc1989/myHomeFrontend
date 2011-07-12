@@ -76,41 +76,45 @@ try {
 					
 					var itemRow1 = Ti.UI.createTableViewRow({
 						left: 0,
-						hasChild: true
+						hasChild: true,
+						leftImage: "../images/page_layout.png"
 					});
 				
 					var itemLabel1 = Ti.UI.createLabel({
-						left: 9,
+						left: 40,
 						text: "Grundriss"
 					});
 					
 					var itemRow2 = Ti.UI.createTableViewRow({
 						left: 0,
-						hasChild: true
+						hasChild: true,
+						leftImage: "../images/box.png"
 					});
 				
 					var itemLabel2 = Ti.UI.createLabel({
-						left: 9,
+						left: 40,
 						text: "Räume"
 					});
 					
 					var itemRow3 = Ti.UI.createTableViewRow({
 						left: 0,
-						hasChild: true
+						hasChild: true,
+						leftImage: "../images/lightbulb.png"
 					});
 				
 					var itemLabel3 = Ti.UI.createLabel({
-						left: 9,
+						left: 40,
 						text: "Lichter"
 					});
 					
 					var itemRow4 = Ti.UI.createTableViewRow({
 						left: 0,
-						hasChild: true
+						hasChild: true,
+						leftImage: "../images/preso.png"
 					});
 				
 					var itemLabel4 = Ti.UI.createLabel({
-						left: 9,
+						left: 40,
 						text: "Kameras"
 					});
 										
@@ -119,6 +123,7 @@ try {
 					itemRow3.add(itemLabel3);
 					itemRow4.add(itemLabel4);
 
+					/*
 					itemRow1.addEventListener('click', function (e) {
 						Titanium.API.info(ebenenName + 'Grundriss');
 						openWindow('menue_grundriss.js', ebenenName, true);
@@ -138,6 +143,15 @@ try {
 						Titanium.API.info(ebenenName + 'Kameras');
 						openWindow('menue_kameras.js', ebenenName, true);
 					});
+					*/
+					
+					
+					addEventToRow(itemRow1, ebenenName, 'menue_grundriss.js', Titanium.UI.currentWindow, ebenenID);
+					addEventToRow(itemRow2, ebenenName, 'menue_raume.js', Titanium.UI.currentWindow, ebenenID);
+					addEventToRow(itemRow3, ebenenName, 'menue_lichter.js', Titanium.UI.currentWindow, ebenenID);
+					addEventToRow(itemRow4, ebenenName, 'menue_kameras.js', Titanium.UI.currentWindow, ebenenID);
+					
+					
 					
 					ebenen[ebenenID].add(itemRow1);
 					ebenen[ebenenID].add(itemRow2);

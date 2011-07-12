@@ -1,141 +1,222 @@
+Titanium.UI.orientation = Titanium.UI.PORTRAIT;
+
 Titanium.include('functions.js');
+Titanium.include('suds.js');
+
+var itemRow = [];
+var itemSecondRow = [];
+var sectionArray = [];
+var switchArray = [];
+var sliderArray = [];
 
 var win1 = Titanium.UI.currentWindow;
 
-/******************************
- *  POTRAIT MODUS
- *****************************/
-//if (currWindow.orientationModes = Titanium.UI.PORTRAIT){
+win1.orientationModes = [Titanium.UI.PORTRAIT];
 
-	win1.orientationModes = [Titanium.UI.PORTRAIT];
-	
-	Titanium.UI.orientation = Titanium.UI.PORTRAIT;
-	
-	var logo = Titanium.UI.createImageView({
-		image: "../images/logo.png",
-		width: '59px',
-		height: '59px',
-		top: '10px'
-	});
-	
-	win1.add(logo);
-	
-	var section1 = Titanium.UI.createTableViewSection({
-		headerTitle: 'Lichter'
-	});
-	 
-	// create the main menu container
-	var lichter_menu = Ti.UI.createTableView({
-		left:0,
-		top: '79px'
-	});
-	
-	// first option row
-	var firstItemRow = Ti.UI.createTableViewRow({
-		hasChild: true,
-		leftImage: "../images/lightbulb.png"
-	});
-	
-	var firstItemLabel = Ti.UI.createLabel({
-		left: 40,
-		text: "Licht1"
-	});
-	firstItemRow.add(firstItemLabel);
-	
-	var firstSwitch = Titanium.UI.createSwitch({
-		value:false
-	});
-	firstItemRow.add(firstSwitch);
-	
-	section1.add(firstItemRow);
-	// end first option row
-	
-	
-	// second option row
-	var secondItemRow = Ti.UI.createTableViewRow({
-		hasChild: true,
-		hasDetail: true,
-		leftImage: "../images/lightbulb.png"
-	});
-	
-	var secondItemLabel = Ti.UI.createLabel({
-		left: 40,
-		text: "Licht2"
-	});
-	secondItemRow.add(secondItemLabel);
-	
-	var secondSwitch = Titanium.UI.createSwitch({
-		value:false
-	});
-	secondItemRow.add(secondSwitch);
-	
-	section1.add(secondItemRow);
-	// end second option row
-	
-	
-	// third option row
-	var thirdItemRow = Ti.UI.createTableViewRow({
-		hasChild: true,
-		leftImage: "../images/lightbulb.png"
-	});
-	
-	var thirdItemLabel = Ti.UI.createLabel({
-		left: 40,
-		text: "Licht3"
-	});
-	thirdItemRow.add(thirdItemLabel);
-	
-	var thirdSwitch = Titanium.UI.createSwitch({
-		value:false
-	});
-	thirdItemRow.add(thirdSwitch);
-	
-	section1.add(thirdItemRow);
-	// end third option row
-	
-	// fourth option row
-	var fourthItemRow = Ti.UI.createTableViewRow({
-		hasChild: true,
-		leftImage: "../images/lightbulb.png"
-	});
-	
-	var fourthItemLabel = Ti.UI.createLabel({
-		left: 40,
-		text: "Licht4"
-	});
-	fourthItemRow.add(fourthItemLabel);
-	
-	var fourthSwitch = Titanium.UI.createSwitch({
-		value:false
-	});
-	fourthItemRow.add(fourthSwitch);
-	
-	section1.add(fourthItemRow);
-	// end fourth option row
-	
-	lichter_menu.setData([section1]);
-	
-	win1.add(lichter_menu);
-
-
-/******************************
- *  LANDSCAPE MODUS
- *****************************/
 /*
-else{
-	
-	var testLabel = Ti.UI.createLabel({
-		left: 9,
-		text: "Test"
-	});
-	win1.add(testLabel);
-	
+ * Definiton der URL Endpoint.
+ */
+// var url = Titanium.App.Properties.getString('url') + '/services?wsdl'; 
+
+/*
+ * Definition der Parameter, die an SOAP Schnittstelle uebergeben werden soll.
+ * userToken muss angepasst werden !!!
+ */
+var callparams;
+var soapAction;
+
+if(win1.params){
+	callparams = {
+	    userToken: Titanium.App.Properties.getString('userToken'),
+		blueprintId: parseInt(win1.params, 10)
+		//blueprintId: parseInt(2)
+	};
+	soapAction = 'getNodesByBlueprint';
+} else {
+	callparams = {
+	    userToken: Titanium.App.Properties.getString('userToken')
+	};
+	soapAction = 'getNodes';
 }
-*/
+/*
+ * Neues Objekt SudsClient wird erzeugt (SOAP Client).
+ */
+var suds = new SudsClient({
+	endpoint: url,
+	targetNamespace: Titanium.App.Properties.getString('url')
+});
+
+var main_menu = Ti.UI.createTableView({
+	style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
+	scrollable:true,
+	backgroundColor:'transparent',
+	rowBackgroundColor:'white'
+});
+
+try {
+    suds.invoke(soapAction, callparams, function(xmlDoc) {
+        var results = xmlDoc.documentElement.getElementsByTagName('item');
+        if (results && results.length>0) {
+            
+			for(var n = 0; n < results.length; n++){
+				
+				var result = results.item(n);
+							
+				var nodesName = result.getElementsByTagName('name').item(0).text;
+				
+				
+				var nodesID = result.getElementsByTagName('id').item(0).text;
+				
+				// Nur wenn es bei dem zurückgegeben Node ein XML Tag 'Status' gibt, wird dieses auch ausgelesen
+				// Notwendig, weil wir nur "lights" haben wollen
+				if(result.getElementsByTagName('type').item(0).text == 'relais'){
+					var nodesStatus = result.getElementsByTagName('status');
+					for(var i = 0; i < nodesStatus.length; i++ ){
+								
+						var nodesStatusKey = result.getElementsByTagName('key').item(0).text;
+								
+						var nodesStatusValue = result.getElementsByTagName('value').item(0).text;						
+							
+					}
+					
+					var lightboolean;
+					if(nodesStatusValue == 0){
+						lightboolean = false;
+					} else {
+						lightboolean = true;
+					}
+						
+					// first option row
+						itemRow[nodesID] = Ti.UI.createTableViewRow({
+							left: 0,
+							hasChild: true,
+							leftImage: "../images/lightbulb.png"
+						});
+												
+						var firstItemLabel = Ti.UI.createLabel({
+							left: 40,
+							text: nodesName
+						});
+						itemRow[nodesID].add(firstItemLabel);
+						
+						switchArray[nodesID] = Titanium.UI.createSwitch({
+							right: 30,
+							value: lightboolean
+						});
+						Titanium.API.info("VAlUE" + switchArray[nodesID].value);						
+						
+						setEventListener(nodesID, nodesStatusKey);
+						
+						itemRow[nodesID].add(switchArray[nodesID]);
+						
+						main_menu.appendRow(itemRow[nodesID]);
+					
+				}
+				
+				
+							
+			} // for(var n = 0; n < results.length; n++)
+								
+        } else {
+            Titanium.API.info('Error: SOAP call.');
+        }
+		
+    }); // suds.invoke
+} catch(e) {
+    Ti.API.error('Error: ' + e);
+}
 
 /*
-firstItemRow.addEventListener('click', function (e) {
-	Titanium.API.info("Oeffne Grundriss");
-	openWindow('js/menue_grundriss.js', 'Grundriss', true);
+var logoutBtn = Titanium.UI.createButton({
+	title:'Logout'
+});
+
+win1.rightNavButton = logoutBtn;
+
+logoutBtn.addEventListener('click',function(e)
+{
+	Ti.App.fireEvent('eventLogout');
 });
 */
+
+
+win1.add(main_menu);
+
+function setEventListener(nodesID, nodesStatusKey){
+	switchArray[nodesID].addEventListener('change',function(f)
+	{
+		Titanium.API.info('Basic Switch value = ' + f.value + ' act val ' + switchArray[nodesID].value);
+		var status;
+		if(f.value == true){
+			status = 1;
+		} else {
+			status = 0;
+		}
+		setLichtStatus(nodesID, nodesStatusKey, status);
+	});
+};
+
+function setLichtStatus(id, key, value){
+	Titanium.API.info("UEBERGEBEN ID : " + id);
+	Titanium.API.info(id);
+	Titanium.API.info(key);
+	Titanium.API.info(value);
+	var callparams2 = {
+		userToken: Titanium.App.Properties.getString('userToken'),
+		nodeId: parseInt(id, 10),
+		key: key,
+		value: value
+	};
+	/*
+	 * Neues Objekt SudsClient wird erzeugt (SOAP Client).
+	 */
+	var suds2 = new SudsClient({
+		endpoint: url,
+		targetNamespace: Titanium.App.Properties.getString('url')
+	});
+	
+	try {
+		suds2.invoke('setStatus', callparams2, function(xmlDoc){
+			var resultsABC = xmlDoc.documentElement.getElementsByTagName('item');
+			if (resultsABC && resultsABC.length > 0) {
+				for (var n123 = 0; n123 < resultsABC.length; n123++) {
+					var resultABC = resultsABC.item(n123);
+					
+					var nodesIDABC = resultABC.getElementsByTagName('id').item(0).text;
+					Titanium.API.info('nodesIDABC: ' + nodesIDABC);
+										
+					var nodesStatusABC = resultABC.getElementsByTagName('status');
+					for (var i = 0; i < nodesStatusABC.length; i++) {
+					var resultXXX = nodesStatusABC.item(i);
+						var nodesStatusKeyABC = resultXXX.getElementsByTagName('key').item(0).text;
+						Titanium.API.info('nodesStatusKey : ' + nodesStatusKeyABC);
+						
+						var nodesStatusValueABC = resultXXX.getElementsByTagName('value').item(0).text;
+						Titanium.API.info('nodesStatusValue : ' + nodesStatusValueABC);
+						
+					}
+						
+					
+					updateSwitch(nodesIDABC, nodesStatusValueABC);
+					
+				}
+			}
+			else {
+				Titanium.API.info('Error: SOAP call.');
+			}
+		});
+	} catch(e) {
+		Ti.API.error('Error: ' + e);
+	}	
+};
+
+function updateSwitch(nodesID, nodesStatusValue){
+	Titanium.API.info(nodesID + " : " + nodesStatusValue);
+	var status;
+	if(nodesStatusValue == 1){
+		status = true;
+	} else {
+		status = false;
+	}
+	//switchArray[nodesID].setValue(status);
+};
